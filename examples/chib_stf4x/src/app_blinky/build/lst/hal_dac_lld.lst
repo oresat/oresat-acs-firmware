@@ -1,0 +1,121 @@
+ARM GAS  /tmp/cco5o9YU.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 2
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"hal_dac_lld.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.section	.gnu.lto_.profile.83f1c1dd10fe0897,"",%progbits
+  19 0000 789C6361 		.ascii	"x\234ca`\004B \000\000\0009\000\007"
+  19      60044220 
+  19      00000039 
+  19      0007
+  20              		.text
+  21              		.section	.gnu.lto_.icf.83f1c1dd10fe0897,"",%progbits
+  22 0000 789C6361 		.ascii	"x\234ca`d\000\001&\006d\000\000\000\236\000\010"
+  22      60640001 
+  22      26066400 
+  22      00009E00 
+  22      08
+  23              		.text
+  24              		.section	.gnu.lto_.jmpfuncs.83f1c1dd10fe0897,"",%progbits
+  25 0000 789C6361 		.ascii	"x\234ca`d\000\001&\006d\000\000\000\236\000\010"
+  25      60640001 
+  25      26066400 
+  25      00009E00 
+  25      08
+  26              		.text
+  27              		.section	.gnu.lto_.inline.83f1c1dd10fe0897,"",%progbits
+  28 0000 789C6361 		.ascii	"x\234ca`d\000\001&\006d\000\000\000\236\000\010"
+  28      60640001 
+  28      26066400 
+  28      00009E00 
+  28      08
+  29              		.text
+  30              		.section	.gnu.lto_.pureconst.83f1c1dd10fe0897,"",%progbits
+  31 0000 789C6361 		.ascii	"x\234ca`\004B \000\000\0009\000\007"
+  31      60044220 
+  31      00000039 
+  31      0007
+  32              		.text
+  33              		.section	.gnu.lto_.symbol_nodes.83f1c1dd10fe0897,"",%progbits
+  34 0000 789C6361 		.ascii	"x\234ca`d`b\000\001\000\000F\000\010"
+  34      60646062 
+  34      00010000 
+  34      460008
+  35              		.text
+  36              		.section	.gnu.lto_.refs.83f1c1dd10fe0897,"",%progbits
+ARM GAS  /tmp/cco5o9YU.s 			page 2
+
+
+  37 0000 789C6361 		.ascii	"x\234ca`\004B \000\000\0009\000\007"
+  37      60044220 
+  37      00000039 
+  37      0007
+  38              		.text
+  39              		.section	.gnu.lto_.decls.83f1c1dd10fe0897,"",%progbits
+  40 0000 789C6361 		.ascii	"x\234ca`d\200\001\020K\005\210\377\003\001\210\035\306"
+  40      60648001 
+  40      104B0588 
+  40      FF030188 
+  40      1DC6
+  41 0012 40000000 		.ascii	"@\000\000\000\260\216\004~"
+  41      B08E047E 
+  42              		.text
+  43              		.section	.gnu.lto_.symtab.83f1c1dd10fe0897,"",%progbits
+  44              		.text
+  45              		.section	.gnu.lto_.opts,"",%progbits
+  46 0000 272D666D 		.ascii	"'-fmath-errno' '-fsigned-zeros' '-ftrapping-math' '"
+  46      6174682D 
+  46      6572726E 
+  46      6F272027 
+  46      2D667369 
+  47 0033 2D666E6F 		.ascii	"-fno-trapv' '-fno-openmp' '-fno-openacc' '-mcpu=cor"
+  47      2D747261 
+  47      70762720 
+  47      272D666E 
+  47      6F2D6F70 
+  48 0066 7465782D 		.ascii	"tex-m0' '-mno-thumb-interwork' '-mthumb' '-ggdb' '-"
+  48      6D302720 
+  48      272D6D6E 
+  48      6F2D7468 
+  48      756D622D 
+  49 0099 4F322720 		.ascii	"O2' '-fomit-frame-pointer' '-falign-functions=16' '"
+  49      272D666F 
+  49      6D69742D 
+  49      6672616D 
+  49      652D706F 
+  50 00cc 2D666675 		.ascii	"-ffunction-sections' '-fdata-sections' '-fno-common"
+  50      6E637469 
+  50      6F6E2D73 
+  50      65637469 
+  50      6F6E7327 
+  51 00ff 2720272D 		.ascii	"' '-flto'\000"
+  51      666C746F 
+  51      2700
+  52              		.text
+  53              		.comm	__gnu_lto_v1,1,1
+  54              		.comm	__gnu_lto_slim,1,1
+  55              		.ident	"GCC: (15:5.4.1+svn241155-1) 5.4.1 20160919"
+ARM GAS  /tmp/cco5o9YU.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 hal_dac_lld.c
+                            *COM*:0000000000000001 __gnu_lto_v1
+                            *COM*:0000000000000001 __gnu_lto_slim
+
+NO UNDEFINED SYMBOLS
