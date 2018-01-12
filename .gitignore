@@ -1,3 +1,7 @@
+# Other stuff
+*.lst
+*.swp
+
 # Prerequisites
 *.d
 
