@@ -87,6 +87,11 @@ PROJECT = acs_f0_blinky
 
 # Imported source files and paths
 CHIBIOS = ../../../ChibiOS
+TOOLCHAIN = ../../toolchain
+
+# Nucleo64 specific files
+include $(TOOLCHAIN)/nucleo32.mk
+
 # Startup files.
 include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f0xx.mk
 # HAL-OSAL files (optional).
@@ -218,3 +223,5 @@ ULIBS =
 
 RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
 include $(RULESPATH)/rules.mk
+
+include $(NUCLEO32_RULES)
