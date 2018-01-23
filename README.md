@@ -1,5 +1,5 @@
 # oresat-acs-firmware
-M0 Firmware for the OreSat Attitude Control System board
+M0 Firmware for the OreSat Attitude Control System board  
 Also supports M4
 
 # Please add your info  
