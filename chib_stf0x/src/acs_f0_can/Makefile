@@ -78,7 +78,7 @@ endif
 #
 
 # Define project name here
-PROJECT = acs_f0_PWM_ICU
+PROJECT = acs_f0_can
 
 # Imported source files and paths
 CHIBIOS = ../../../ChibiOS
@@ -92,18 +92,18 @@ include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f0xx.m
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/hal/ports/STM32/STM32F0xx/platform.mk
-#include $(CHIBIOS)/os/hal/boards/ST_STM32F0_DISCOVERY/board.mk
-include $(CHIBIOS)/os/hal/boards/ST_NUCLEO32_F042K6/board.mk
+include $(CHIBIOS)/os/hal/boards/ST_STM32F072B_DISCOVERY/board.mk
 include $(CHIBIOS)/os/hal/osal/rt/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v6m.mk
 # Other files (optional).
-include $(CHIBIOS)/test/lib/test.mk
-include $(CHIBIOS)/test/rt/rt_test.mk
-include $(CHIBIOS)/test/oslib/oslib_test.mk
+#include $(CHIBIOS)/test/lib/test.mk
+#include $(CHIBIOS)/test/rt/rt_test.mk
+#include $(CHIBIOS)/test/oslib/oslib_test.mk
 
 # Define linker script file here
+#LDSCRIPT= $(STARTUPLD)/STM32F072xB.ld
 LDSCRIPT= $(STARTUPLD)/STM32F042x6.ld
 
 # C sources that can be compiled in ARM or THUMB mode depending on the global
@@ -221,4 +221,3 @@ RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
 include $(RULESPATH)/rules.mk
 
 include $(NUCLEO32_RULES)
-
