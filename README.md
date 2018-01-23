@@ -4,7 +4,7 @@ Also supports M4
 
 # Please add your info  
 
-git config --global user.name 'Frist Last'  
+git config --global user.name 'First Last'  
 git config --global user.email 'first.last@example.com'  
 
 # Switching to ChibiOS/trunk  
