@@ -1,0 +1,570 @@
+
+build/app_candev.elf:     file format elf32-littlearm
+build/app_candev.elf
+architecture: arm, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x080000c1
+
+Program Header:
+    LOAD off    0x00010000 vaddr 0x08000000 paddr 0x08000000 align 2**16
+         filesz 0x00003de0 memsz 0x00003de0 flags rwx
+    LOAD off    0x00020400 vaddr 0x20000400 paddr 0x08003de0 align 2**16
+         filesz 0x00000000 memsz 0x00000d48 flags rw-
+    LOAD off    0x00020000 vaddr 0x20000000 paddr 0x20000000 align 2**16
+         filesz 0x00000000 memsz 0x00001800 flags rw-
+private flags = 5000200: [Version5 EABI] [soft-float ABI]
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .mstack       00000200  20000000  20000000  00020000  2**0
+                  ALLOC
+  1 .pstack       00000200  20000200  20000200  00020000  2**0
+                  ALLOC
+  2 .vectors      000000c0  08000000  08000000  00010000  2**7
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .text         0000391c  080000c0  080000c0  000100c0  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  4 .rodata       00000404  080039dc  080039dc  000139dc  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  5 .data         00000000  20000400  20000400  00013de0  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  6 .bss          00000d48  20000400  08003de0  00020400  2**3
+                  ALLOC
+  7 .ram0_init    00000000  20001148  20001148  00013de0  2**2
+                  CONTENTS
+  8 .ram0         00000000  20001148  20001148  00013de0  2**2
+                  CONTENTS
+  9 .ram1_init    00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 10 .ram1         00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 11 .ram2_init    00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 12 .ram2         00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 13 .ram3_init    00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 14 .ram3         00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 15 .ram4_init    00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 16 .ram4         00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 17 .ram5_init    00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 18 .ram5         00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 19 .ram6_init    00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 20 .ram6         00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 21 .ram7_init    00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 22 .ram7         00000000  00000000  00000000  00013de0  2**2
+                  CONTENTS
+ 23 .heap         000006b8  20001148  20001148  00020000  2**0
+                  ALLOC
+ 24 .ARM.attributes 0000002d  00000000  00000000  00013de0  2**0
+                  CONTENTS, READONLY
+ 25 .comment      0000002b  00000000  00000000  00013e0d  2**0
+                  CONTENTS, READONLY
+ 26 .debug_info   0000bba2  00000000  00000000  00013e38  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 27 .debug_abbrev 000018e3  00000000  00000000  0001f9da  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 28 .debug_aranges 00001008  00000000  00000000  000212bd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 29 .debug_ranges 00000fa8  00000000  00000000  000222c5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 30 .debug_line   00004958  00000000  00000000  0002326d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 31 .debug_str    00003557  00000000  00000000  00027bc5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 32 .debug_frame  00002bfc  00000000  00000000  0002b11c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+SYMBOL TABLE:
+20000000 l    d  .mstack	00000000 .mstack
+20000200 l    d  .pstack	00000000 .pstack
+08000000 l    d  .vectors	00000000 .vectors
+080000c0 l    d  .text	00000000 .text
+080039dc l    d  .rodata	00000000 .rodata
+20000400 l    d  .data	00000000 .data
+20000400 l    d  .bss	00000000 .bss
+20001148 l    d  .ram0_init	00000000 .ram0_init
+20001148 l    d  .ram0	00000000 .ram0
+00000000 l    d  .ram1_init	00000000 .ram1_init
+00000000 l    d  .ram1	00000000 .ram1
+00000000 l    d  .ram2_init	00000000 .ram2_init
+00000000 l    d  .ram2	00000000 .ram2
+00000000 l    d  .ram3_init	00000000 .ram3_init
+00000000 l    d  .ram3	00000000 .ram3
+00000000 l    d  .ram4_init	00000000 .ram4_init
+00000000 l    d  .ram4	00000000 .ram4
+00000000 l    d  .ram5_init	00000000 .ram5_init
+00000000 l    d  .ram5	00000000 .ram5
+00000000 l    d  .ram6_init	00000000 .ram6_init
+00000000 l    d  .ram6	00000000 .ram6
+00000000 l    d  .ram7_init	00000000 .ram7_init
+00000000 l    d  .ram7	00000000 .ram7
+20001148 l    d  .heap	00000000 .heap
+00000000 l    d  .ARM.attributes	00000000 .ARM.attributes
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    df *ABS*	00000000 
+080009c0 l     F .text	00000050 Vector7C
+08000400 l     F .text	00000054 VectorB8
+080001e0 l     F .text	000000b4 can_lld_tx_handler
+080002a0 l     F .text	0000006e can_lld_rx0_handler
+08000310 l     F .text	0000006e can_lld_rx1_handler
+08000380 l     F .text	0000007c can_lld_sce_handler
+08003cac l     O .rodata	00000009 __func__.6534
+08000880 l     F .text	00000042 initgpio
+08000930 l     F .text	00000004 port_lock
+08000940 l     F .text	00000004 port_unlock
+08000950 l     F .text	00000008 port_lock_from_isr
+08000960 l     F .text	00000008 port_unlock_from_isr
+08000970 l     F .text	0000000c chSysLockFromISR
+08000980 l     F .text	0000000c chSysUnlockFromISR
+08000990 l     F .text	00000008 osalSysLockFromISR.lto_priv.3
+080009a0 l     F .text	00000008 osalSysUnlockFromISR.lto_priv.1
+080009b0 l     F .text	00000008 osalOsTimerHandlerI
+08003cc4 l     O .rodata	00000009 __func__.6500
+08000ab0 l     F .text	00000014 chRegSetThreadName
+08000ad0 l     F .text	0000001c chEvtRegisterMask
+08000af0 l     F .text	0000001e chEvtRegister
+08003d40 l     O .rodata	00000008 cancfg
+20000db8 l     O .bss	000001c8 can_rx_wa
+08000b10 l     F .text	0000005c can_rx
+20000f80 l     O .bss	000001c8 can_tx_wa
+08000b70 l     F .text	0000007c can_tx
+00000000 l    df *ABS*	00000000 build/obj/crt0_v6m.o
+080000e6 l       .text	00000000 msloop
+080000f0 l       .text	00000000 endmsloop
+080000f4 l       .text	00000000 psloop
+080000fe l       .text	00000000 endpsloop
+08000104 l       .text	00000000 dloop
+08000112 l       .text	00000000 enddloop
+08000118 l       .text	00000000 bloop
+08000122 l       .text	00000000 endbloop
+0800012e l       .text	00000000 initloop
+0800013a l       .text	00000000 endinitloop
+08000142 l       .text	00000000 finiloop
+0800014e l       .text	00000000 endfiniloop
+00000000 l    df *ABS*	00000000 build/obj/chcoreasm_v6m.o
+e000ed04 l       *ABS*	00000000 SCB_ICSR
+10000000 l       *ABS*	00000000 ICSR_PENDSVSET
+80000000 l       *ABS*	00000000 ICSR_NMIPENDSET
+00000000 l    df *ABS*	00000000 
+08000c60 l     F .text	00000004 port_lock.lto_priv.64
+08000c70 l     F .text	00000004 port_unlock.lto_priv.62
+08000c80 l     F .text	00000014 queue_init
+08000ca0 l     F .text	0000000c chSysLock
+08000cb0 l     F .text	00000038 chSysUnlock
+08000cf0 l     F .text	00000012 chThdQueueObjectInit
+08000d10 l     F .text	0000000e chEvtObjectInit
+08000d20 l     F .text	00000008 osalSysLock.lto_priv.88
+08000d30 l     F .text	00000008 osalSysUnlock.lto_priv.86
+08000d40 l     F .text	00000012 osalThreadQueueObjectInit.lto_priv.84
+08000d60 l     F .text	0000001c osalThreadEnqueueTimeoutS.lto_priv.82
+08000d80 l     F .text	00000012 osalEventObjectInit
+08000fc0 l     F .text	00000020 st_lld_start_alarm
+08000fe0 l     F .text	0000000a st_lld_stop_alarm
+08000ff0 l     F .text	00000010 st_lld_set_alarm
+08001000 l     F .text	00000014 st_lld_is_alarm_active
+08001120 l     F .text	00000060 hal_lld_backup_domain_init
+080012c0 l     F .text	00000004 port_lock.lto_priv.65
+080012d0 l     F .text	00000004 port_unlock.lto_priv.63
+080012e0 l     F .text	00000008 port_lock_from_isr
+080012f0 l     F .text	00000008 port_unlock_from_isr
+08001300 l     F .text	0000000c chSysLockFromISR
+08001310 l     F .text	0000000c chSysUnlockFromISR
+08001320 l     F .text	00000028 chThdSleepS
+00000000 l    df *ABS*	00000000 
+08001610 l     F .text	0000003c chPoolFreeI
+08001670 l     F .text	00000004 port_lock.lto_priv.112
+08001680 l     F .text	00000004 port_unlock.lto_priv.109
+08001690 l     F .text	00000008 port_lock_from_isr
+080016a0 l     F .text	00000008 port_unlock_from_isr
+08001740 l     F .text	00000002 osalInit
+00000000 l    df *ABS*	00000000 
+080017f0 l     F .text	00000070 chEvtSignalI
+080018e0 l     F .text	00000004 port_lock.lto_priv.136
+080018f0 l     F .text	00000004 port_unlock.lto_priv.131
+08001900 l     F .text	0000000c chSysLock.lto_priv.151
+08001910 l     F .text	00000038 chSysUnlock.lto_priv.146
+08001970 l     F .text	0000007c chCoreAllocAlignedI
+080019f0 l     F .text	00000028 chCoreAllocAligned
+08001b60 l     F .text	00000004 port_lock.lto_priv.137
+08001b70 l     F .text	00000004 port_unlock.lto_priv.132
+00000000 l    df *ABS*	00000000 
+08001c40 l     F .text	00000004 port_lock.lto_priv.165
+08001c50 l     F .text	00000004 port_unlock.lto_priv.160
+08001c60 l     F .text	0000000c chSysLock.lto_priv.177
+08001c70 l     F .text	00000038 chSysUnlock.lto_priv.172
+08001cb0 l     F .text	0000000e chThdGetWorkingAreaX
+08001cc0 l     F .text	00000030 chRegFirstThread
+08001cf0 l     F .text	0000005c chRegNextThread
+08001d90 l     F .text	00000004 port_lock.lto_priv.167
+08001da0 l     F .text	00000004 port_unlock.lto_priv.162
+08001db0 l     F .text	00000014 queue_init.lto_priv.191
+08001dd0 l     F .text	00000018 queue_notempty.lto_priv.188
+08001df0 l     F .text	00000044 queue_prio_insert.lto_priv.184
+08001e40 l     F .text	00000022 queue_fifo_remove.lto_priv.182
+08001e70 l     F .text	00000020 queue_dequeue
+08001e90 l     F .text	0000000c chSysLock.lto_priv.179
+08001ea0 l     F .text	00000038 chSysUnlock.lto_priv.174
+08001ee0 l     F .text	0000001a chMtxQueueNotEmptyS
+08001f50 l     F .text	00000108 chMtxLockS
+08002150 l     F .text	00000004 port_lock.lto_priv.169
+08002160 l     F .text	00000004 port_unlock.lto_priv.164
+00000000 l    df *ABS*	00000000 
+080022d0 l     F .text	000000ec NVIC_SetPriority
+080023c0 l     F .text	00000010 port_init
+080023d0 l     F .text	00000004 port_lock.lto_priv.236
+080023e0 l     F .text	00000004 port_unlock.lto_priv.231
+080023f0 l     F .text	00000008 port_lock_from_isr.lto_priv.252
+08002400 l     F .text	00000008 port_unlock_from_isr.lto_priv.248
+08002410 l     F .text	00000004 port_disable
+08002420 l     F .text	00000004 port_enable
+08002430 l     F .text	00000002 port_wait_for_interrupt
+08002440 l     F .text	0000000a st_lld_get_counter.lto_priv.227
+08002450 l     F .text	00000008 port_timer_stop_alarm.lto_priv.258
+08002460 l     F .text	00000012 port_timer_set_alarm.lto_priv.256
+08002480 l     F .text	0000000c port_timer_get_time.lto_priv.223
+08002490 l     F .text	0000000c chSysEnable
+080026b0 l     F .text	00000024 _dbg_check_enable
+080024a0 l     F .text	0000000c chSysLockFromISR.lto_priv.246
+080024b0 l     F .text	0000000c chSysUnlockFromISR.lto_priv.244
+080024c0 l     F .text	0000000c chVTGetSystemTimeX.lto_priv.215
+080024d0 l     F .text	000000e4 chVTDoTickI
+08002f20 l     F .text	00000024 _scheduler_init
+08002b70 l     F .text	00000024 _vt_init
+08002940 l     F .text	00000048 _trace_init
+080035c0 l     F .text	0000007c _thread_init
+08003740 l     F .text	00000058 chThdCreate
+08002aa0 l     F .text	00000044 _trace_halt
+08002670 l     F .text	00000004 port_lock.lto_priv.237
+08002680 l     F .text	00000004 port_unlock.lto_priv.232
+08002690 l     F .text	00000008 port_lock_from_isr.lto_priv.253
+080026a0 l     F .text	00000008 port_unlock_from_isr.lto_priv.249
+08002880 l     F .text	00000004 port_lock.lto_priv.238
+08002890 l     F .text	00000004 port_unlock.lto_priv.233
+080028a0 l     F .text	00000008 port_lock_from_isr.lto_priv.254
+080028b0 l     F .text	00000008 port_unlock_from_isr.lto_priv.250
+080028c0 l     F .text	0000000a st_lld_get_counter.lto_priv.228
+080028d0 l     F .text	0000000c port_timer_get_time.lto_priv.224
+080028e0 l     F .text	0000000c chVTGetSystemTimeX.lto_priv.216
+080028f0 l     F .text	00000044 trace_next
+08002990 l     F .text	00000068 _trace_switch
+08002af0 l     F .text	0000000a st_lld_get_counter.lto_priv.229
+08002b00 l     F .text	00000012 port_timer_start_alarm
+08002b20 l     F .text	00000008 port_timer_stop_alarm.lto_priv.259
+08002b30 l     F .text	00000012 port_timer_set_alarm.lto_priv.257
+08002b50 l     F .text	0000000c port_timer_get_time.lto_priv.225
+08002b60 l     F .text	0000000c chVTGetSystemTimeX.lto_priv.217
+08002ba0 l     F .text	00000138 chVTDoSetI
+08002ce0 l     F .text	000000f8 chVTDoResetI
+08002de0 l     F .text	00000004 port_lock.lto_priv.239
+08002df0 l     F .text	00000004 port_unlock.lto_priv.234
+08002e00 l     F .text	00000008 port_lock_from_isr.lto_priv.255
+08002e10 l     F .text	00000008 port_unlock_from_isr.lto_priv.251
+08002e20 l     F .text	00000014 queue_init.lto_priv.221
+08002e40 l     F .text	00000022 queue_fifo_remove.lto_priv.219
+08002e70 l     F .text	00000020 queue_dequeue
+08002e90 l     F .text	00000024 chSchIsRescRequiredI
+08002ec0 l     F .text	0000000c chSysLockFromISR.lto_priv.247
+08002ed0 l     F .text	0000000c chSysUnlockFromISR.lto_priv.245
+08002ee0 l     F .text	0000001a chVTIsArmedI
+08002f00 l     F .text	00000018 chSemFastSignalI
+08002fd0 l     F .text	00000080 chSchReadyAheadI
+080030e0 l     F .text	00000060 wakeup
+080032c0 l     F .text	00000078 chSchDoRescheduleAhead
+080033c0 l     F .text	00000004 port_lock.lto_priv.240
+080033d0 l     F .text	00000004 port_unlock.lto_priv.235
+080033e0 l     F .text	0000000e list_init
+080033f0 l     F .text	00000018 list_notempty
+08003410 l     F .text	00000014 queue_init.lto_priv.222
+08003450 l     F .text	0000001a list_remove
+080034a0 l     F .text	00000022 queue_fifo_remove.lto_priv.220
+08003520 l     F .text	0000000e chThdGetWorkingAreaX
+08003530 l     F .text	00000028 chThdSleepS
+08003940 l     F .text	0000007c chThdExitS
+08003cd0 g     O .rodata	00000070 .hidden pal_default_config
+08001360 g     F .text	00000008 .hidden osalSysUnlockFromISR.lto_priv.0
+080022c0 g     F .text	00000002 .hidden Vector58
+080022c0 g     F .text	00000002 .hidden Vector9C
+08003b78 g     O .rodata	00000010 .hidden __func__.6198.lto_priv.200
+080010a0 g     F .text	0000007c .hidden nvicEnableVector
+080022c0 g     F .text	00000002 .hidden VectorAC
+08002660 g     F .text	0000000c .hidden chSysTimerHandlerI
+08003920 g     F .text	00000016 chThdExit
+08003cb8 g     O .rodata	0000000c .hidden __func__.5358.lto_priv.5
+08001780 g     F .text	00000068 .hidden chEvtBroadcastFlagsI
+08003140 g     F .text	00000068 .hidden chSchGoSleepTimeoutS
+080022c0 g     F .text	00000002 .hidden DebugMon_Handler
+08000f10 g     F .text	000000a4 .hidden canReceiveTimeout
+00000000 g       .rodata	00000000 __ram4_start__
+080022c0 g     F .text	00000002 .hidden Vector5C
+08002710 g     F .text	0000002c _dbg_check_unlock
+08003640 g     F .text	00000028 .hidden _thread_memfill
+08003ad4 g     O .rodata	00000016 .hidden __func__.5862.lto_priv.213
+08001a50 g     F .text	00000110 .hidden chHeapFree
+00000000 g       .ram5	00000000 __ram5_clear__
+080022c0 g     F .text	00000002 .hidden HardFault_Handler
+080013d0 g     F .text	00000234 .hidden can_lld_set_filters.lto_priv.58
+20001148 g       .ram0_init	00000000 __ram0_init__
+080022c0 g     F .text	00000002 .hidden Vector8C
+080022c0 g     F .text	00000002 .hidden SysTick_Handler
+08003ca0 g     O .rodata	0000000b .hidden __func__.6509.lto_priv.7
+00000000 g       .ram1	00000000 __ram1_free__
+00000000 g       .rodata	00000000 __ram6_start__
+080022c0 g     F .text	00000002 .hidden PendSV_Handler
+080016b0 g     F .text	0000002a .hidden NMI_Handler
+08000000 g     O .vectors	000000c0 _vectors
+08003de0 g       .rodata	00000000 __exidx_end
+080021c0 g     F .text	0000005c .hidden chEvtRegisterMaskWithFlags
+08003050 g     F .text	00000084 .hidden chSchGoSleepS
+08001bd0 g     F .text	00000038 .hidden chThdEnqueueTimeoutS
+20000d5c g     O .bss	00000004 .hidden nextmem.lto_priv.141
+20001148 g       .ram0	00000000 __ram0_free__
+20001148 g       .heap	00000000 __heap_base__
+080031b0 g     F .text	000000b4 .hidden chSchWakeupS
+08001d50 g     F .text	0000003c .hidden chRegFindThreadByWorkingArea
+08003b28 g     O .rodata	0000000b .hidden __func__.5911.lto_priv.208
+08003de0 g       *ABS*	00000000 __ram3_init_text__
+080037a0 g     F .text	000000c8 .hidden chThdCreateStatic
+08003270 g     F .text	00000014 .hidden chSchRescheduleS
+080022c0 g     F .text	00000002 .hidden Vector94
+00000000 g       *ABS*	00000000 __ram5_end__
+08003a88 g     O .rodata	0000000b .hidden __func__.5856.lto_priv.31
+00000000 g       .ram5	00000000 __ram5_noinit__
+00000000 g       *ABS*	00000000 __ram5_size__
+080022c0 g     F .text	00000002 .hidden VectorA8
+08000a10 g     F .text	00000074 .hidden st_lld_init
+080022c0 g     F .text	00000002 .hidden VectorB4
+08003a64 g     O .rodata	00000018 .hidden idle_descriptor.5855.lto_priv.264
+08001030 g     F .text	00000028 .hidden stStartAlarm
+08002f50 g     F .text	00000080 .hidden chSchReadyI
+080000c0 g       .vectors	00000000 __fini_array_end
+20000400 g       .pstack	00000000 __main_thread_stack_end__
+08003ab0 g     O .rodata	00000011 .hidden __func__.5860.lto_priv.242
+08000570 g     F .text	000000ce .hidden can_lld_transmit
+08003de0 g       .rodata	00000000 __rodata_end__
+08003c5c g     O .rodata	0000000c .hidden __func__.5136.lto_priv.21
+08001a20 g     F .text	0000002c .hidden _heap_init
+080022c0 g     F .text	00000002 .hidden Vector74
+20000d88 g     O .bss	00000030 .hidden CAND1
+080027a0 g     F .text	00000038 .hidden _dbg_check_enter_isr
+08001750 g     F .text	00000024 .hidden halInit
+08000da0 g     F .text	00000008 .hidden canInit
+080022c0 g     F .text	00000002 .hidden UsageFault_Handler
+20000400 g       .bss	00000000 _bss_start
+20000400 g     O .bss	000000d8 .hidden ch_idle_thread_wa
+20001800 g       .heap	00000000 __heap_end__
+080006b0 g     F .text	000001c2 .hidden can_lld_receive
+00000000 g       *ABS*	00000000 __ram1_size__
+080022c0 g     F .text	00000002 .hidden Vector40
+08003aec g     O .rodata	0000000c .hidden __func__.5136.lto_priv.10
+08001060 g     F .text	00000008 .hidden stStopAlarm
+080022c0 g     F .text	00000002 .hidden VectorBC
+00000000 g       .ram1	00000000 __ram1_clear__
+08003b18 g     O .rodata	0000000d .hidden __func__.5896.lto_priv.209
+08003af8 g     O .rodata	0000000c .hidden __func__.5875.lto_priv.211
+08001180 g     F .text	00000054 .hidden hal_lld_init
+00000000 g       .ram7	00000000 __ram7_free__
+00000000 g       *ABS*	00000000 __ram4_size__
+08000e60 g     F .text	000000a4 .hidden canTransmitTimeout
+00000000 g       *ABS*	00000000 __ram1_end__
+08003be4 g     O .rodata	00000015 .hidden __func__.5873.lto_priv.52
+00000000 g       *ABS*	00000000 __ram4_end__
+08003de0 g       .rodata	00000000 __exidx_start
+08003de0 g       *ABS*	00000000 __ram0_init_text__
+08001370 g     F .text	00000012 .hidden osalThreadSleepS.lto_priv.59
+08003de0 g       *ABS*	00000000 __ram1_init_text__
+08000640 g     F .text	00000068 .hidden can_lld_is_rx_nonempty
+08003b88 g     O .rodata	00000010 .hidden __func__.5848.lto_priv.53
+00001800 g       *ABS*	00000000 __ram0_size__
+08003de0 g       *ABS*	00000000 __ram5_init_text__
+08003c90 g     O .rodata	0000000d .hidden __func__.6502.lto_priv.68
+08002640 g     F .text	00000020 .hidden chSysHalt
+080022c0 g     F .text	00000002 .hidden Vector64
+20001148 g       .bss	00000000 _bss_end
+08003ac4 g     O .rodata	0000000d .hidden __func__.5889.lto_priv.241
+080000c0 g     F .text	00000000 Reset_Handler
+08001020 g     F .text	00000008 .hidden stInit
+08003b34 g     O .rodata	0000000c .hidden __func__.5358.lto_priv.4
+080022c0 g     F .text	00000002 .hidden Vector54
+080022c0 g     F .text	00000002 .hidden Vector98
+00000000 g       .ram4	00000000 __ram4_clear__
+00000000 g       .ram5	00000000 __ram5_free__
+08003de0 g       *ABS*	00000000 __ram6_init_text__
+080022c0 g     F .text	00000002 .hidden Vector24
+08002820 g     F .text	00000024 .hidden chDbgCheckClassI
+08001f30 g     F .text	0000001a .hidden chMtxLock
+00000000 g       .ram3	00000000 __ram3_clear__
+08002240 g     F .text	00000002 __default_exit
+00000000 g       *ABS*	00000000 __ram6_end__
+00000000 g       .ram6_init	00000000 __ram6_init__
+08003340 g     F .text	00000078 chSchDoReschedule
+080025d0 g     F .text	0000006c .hidden chSysInit
+00000000 g       .ram7_init	00000000 __ram7_init__
+00000000 g       .ram6	00000000 __ram6_free__
+080039c0 g     F .text	0000001a .hidden chThdSleep
+080022c0 g     F .text	00000002 .hidden Vector84
+00000000 g       .ram2	00000000 __ram2_noinit__
+20000d68 g     O .bss	00000020 .hidden default_heap.lto_priv.138
+00000000 g       .ram6	00000000 __ram6_noinit__
+080011e0 g     F .text	000000d4 .hidden stm32_clock_init
+00000000 g       .ram4_init	00000000 __ram4_init__
+080008d0 g     F .text	00000060 .hidden _pal_lld_init
+00000000 g       .ram7	00000000 __ram7_clear__
+080034d0 g     F .text	0000000c .hidden chSysLock.lto_priv.176
+08001f00 g     F .text	0000002c .hidden chMtxObjectInit
+08001c10 g     F .text	00000026 .hidden chThdDequeueAllI
+08001950 g     F .text	00000020 .hidden _core_init
+20000400 g       .data	00000000 _data_start
+00000000 g       *ABS*	00000000 __ram7_size__
+080025c0 g     F .text	0000000c .hidden _idle_thread.lto_priv.57
+080034e0 g     F .text	00000038 .hidden chSysUnlock.lto_priv.171
+08003b04 g     O .rodata	00000012 .hidden __func__.5884.lto_priv.55
+08003c7c g     O .rodata	00000012 .hidden __func__.6540.lto_priv.73
+08000190 g     F .text	00000000 _port_switch
+08002220 g     F .text	00000002 __core_init
+00000000 g       .ram4	00000000 __ram4_noinit__
+08003470 g     F .text	00000026 .hidden queue_insert.lto_priv.198
+08001070 g     F .text	00000030 .hidden stSetAlarm
+08002230 g     F .text	00000002 __late_init
+080013b0 g     F .text	00000018 .hidden osalEventBroadcastFlagsI.lto_priv.60
+080016e0 g     F .text	00000058 .hidden _port_irq_epilogue
+08003c44 g     O .rodata	0000000c .hidden __func__.5874.lto_priv.125
+08003a94 g     O .rodata	0000000d .hidden __func__.5864.lto_priv.27
+00000000 g       .rodata	00000000 __ram7_start__
+08002a50 g     F .text	0000004c .hidden _trace_isr_leave
+08003bfc g     O .rodata	0000000d .hidden __func__.5890.lto_priv.45
+00000000 g       .ram6	00000000 __ram6_clear__
+08003c0c g     O .rodata	00000014 .hidden __func__.5859.lto_priv.42
+08000490 g     F .text	00000070 .hidden can_lld_start
+08002850 g     F .text	00000024 .hidden chDbgCheckClassS
+20000400 g       .data	00000000 _data_end
+08001390 g     F .text	00000018 .hidden osalThreadDequeueAllI.lto_priv.61
+00000000 g       *ABS*	00000000 __ram3_size__
+08003de0 g       *ABS*	00000000 _textdata
+08003c38 g     O .rodata	0000000c .hidden __func__.5136.lto_priv.19
+08000db0 g     F .text	0000005c .hidden canObjectInit
+080000c0 g       .vectors	00000000 __fini_array_start
+00000000 g       .ram2	00000000 __ram2_clear__
+00000000 g       *ABS*	00000000 __ram3_end__
+00000000 g       *ABS*	00000000 __ram2_size__
+08002740 g     F .text	0000002c .hidden _dbg_check_lock_from_isr
+00000000 g       .rodata	00000000 __ram1_start__
+080039dc g       .rodata	00000000 __rodata_base__
+080022c0 g     F .text	00000002 .hidden MemManage_Handler
+08000bf0 g     F .text	00000068 main
+080022c0 g     F .text	00000002 .hidden Vector6C
+00000000 g       *ABS*	00000000 __ram6_size__
+08003a7c g     O .rodata	0000000c .hidden __func__.5255.lto_priv.265
+080022c0 g     F .text	00000002 .hidden VectorA0
+08003de0 g       *ABS*	00000000 __ram2_init_text__
+080022c0 g     F .text	00000002 .hidden SVC_Handler
+00000000 g       .ram3	00000000 __ram3_free__
+080000c0 g       .vectors	00000000 __init_array_end
+08003de0 g       *ABS*	00000000 __ram4_init_text__
+00000000 g       .ram1	00000000 __ram1_noinit__
+08002180 g     F .text	00000038 .hidden chSysUnlock.lto_priv.142
+080022c0 g     F .text	00000002 .hidden VectorB0
+08003b54 g     O .rodata	00000016 .hidden ch_debug
+080022c0 g     F .text	00000002 .hidden Vector90
+080001b0 g     F .text	00000000 _port_thread_start
+080022c0 g     F .text	00000002 .hidden Vector60
+080022c0 g     F .text	00000002 .hidden Vector1C
+08003c2c g     O .rodata	0000000b .hidden __func__.5878.lto_priv.39
+080022c0 g     F .text	00000002 .hidden Vector48
+00000000 g       .ram2_init	00000000 __ram2_init__
+00000000 g       *ABS*	00000000 __ram2_end__
+20000200 g       .pstack	00000000 __process_stack_base__
+08000460 g     F .text	00000028 .hidden can_lld_init
+20001148 g       .ram0	00000000 __ram0_clear__
+080022c0 g     F .text	00000002 .hidden Vector70
+08003870 g     F .text	000000a4 .hidden chThdRelease
+00000000 g       .ram3	00000000 __ram3_noinit__
+08003670 g     F .text	000000c4 .hidden chThdCreateSuspendedI
+08003c20 g     O .rodata	0000000c .hidden __func__.5136.lto_priv.18
+20000400 g       .data	00000000 _data
+08002770 g     F .text	0000002c .hidden _dbg_check_unlock_from_isr
+08001650 g     F .text	00000020 .hidden chPoolFree
+20001148 g       .ram0	00000000 __ram0_noinit__
+08002250 g     F .text	00000064 __init_ram_areas
+080022c0 g     F .text	00000002 .hidden Vector4C
+00000000 g       .rodata	00000000 __ram2_start__
+08003b6c g     O .rodata	0000000c .hidden __func__.5480.lto_priv.22
+080022c0 g     F .text	00000002 .hidden Vector80
+080001c0 g     F .text	00000000 _port_switch_from_isr
+08003560 g     F .text	0000005c .hidden chThdDoDequeueNextI.lto_priv.201
+00000000 g       *ABS*	00000000 __ram7_end__
+08002170 g     F .text	0000000c .hidden chSysLock.lto_priv.147
+080022c0 g     F .text	00000002 .hidden Vector68
+08002060 g     F .text	000000ec .hidden chMtxUnlock
+08003b98 g     O .rodata	0000000c .hidden __func__.5136.lto_priv.12
+08001860 g     F .text	00000074 .hidden chEvtWaitAnyTimeout
+20000200 g       .mstack	00000000 __main_stack_end__
+080022c0 g     F .text	00000002 .hidden Vector78
+00000000 g       .ram5_init	00000000 __ram5_init__
+20000400 g       .data	00000000 _edata
+08003bd8 g     O .rodata	0000000c .hidden __func__.5136.lto_priv.14
+08000e10 g     F .text	00000050 .hidden canStart
+08003c50 g     O .rodata	00000009 .hidden __func__.6506.lto_priv.78
+080022c0 g     F .text	00000002 .hidden _unhandled_exception
+080022c0 g     F .text	00000002 .hidden Vector88
+08001b80 g     F .text	0000000c .hidden chSysLock.lto_priv.100
+20000200 g       .pstack	00000000 __main_thread_stack_base__
+08001350 g     F .text	00000008 .hidden osalSysLockFromISR.lto_priv.2
+08003de0 g       *ABS*	00000000 __ram7_init_text__
+00000000 g       .ram3_init	00000000 __ram3_init__
+08000500 g     F .text	00000070 .hidden can_lld_is_tx_empty
+20000d60 g     O .bss	00000004 .hidden endmem.lto_priv.140
+20000000 g       .rodata	00000000 __ram0_start__
+080001cc g       .text	00000000 _port_exit_from_isr
+00000000 g       .ram1_init	00000000 __ram1_init__
+080039dc g     O .rodata	00000080 .hidden ram_areas.lto_priv.266
+080000c0 g       .vectors	00000000 __init_array_start
+08001b90 g     F .text	00000038 .hidden chSysUnlock.lto_priv.97
+08003290 g     F .text	00000028 .hidden chSchIsPreemptionRequired
+08003de0 g       *ABS*	00000000 _textdata_start
+00000000 g       .rodata	00000000 __ram5_start__
+080022c0 g     F .text	00000002 .hidden BusFault_Handler
+080022c0 g     F .text	00000002 .hidden Vector50
+080026e0 g     F .text	0000002c _dbg_check_lock
+200004d8 g     O .bss	00000884 .hidden ch
+00000000 g       .ram2	00000000 __ram2_free__
+00000000 g       .ram4	00000000 __ram4_free__
+20001800 g       *ABS*	00000000 __ram0_end__
+20000000 g       .mstack	00000000 __main_stack_base__
+08002a00 g     F .text	0000004c .hidden _trace_isr_enter
+080022c0 g     F .text	00000002 .hidden Vector44
+08003430 g     F .text	00000018 .hidden queue_notempty.lto_priv.186
+080022c0 g     F .text	00000002 .hidden Vector28
+08000aa0 g     F .text	00000002 .hidden boardInit
+08003ba4 g     O .rodata	0000000b .hidden __func__.5856.lto_priv.32
+00000200 g       *ABS*	00000000 __main_stack_size__
+08003b40 g     O .rodata	00000014 .hidden __func__.5370.lto_priv.214
+00000000 g       .ram7	00000000 __ram7_noinit__
+08003c68 g     O .rodata	00000013 .hidden __func__.6529.lto_priv.74
+08003bb0 g     O .rodata	0000000c .hidden __func__.5879.lto_priv.193
+080027e0 g     F .text	00000038 .hidden _dbg_check_leave_isr
+20000400 g       .pstack	00000000 __process_stack_end__
+08003bbc g     O .rodata	0000001b .hidden __func__.5851.lto_priv.159
+080022c0 g     F .text	00000002 .hidden Vector34
+08000a90 g     F .text	00000008 __early_init
+08003aa4 g     O .rodata	0000000c .hidden __func__.5853.lto_priv.243
+00000000 g       .rodata	00000000 __ram3_start__
+080022c0 g     F .text	00000002 .hidden VectorA4
+00000200 g       *ABS*	00000000 __process_stack_size__
+080022c0 g     F .text	00000002 .hidden Vector20
+
+

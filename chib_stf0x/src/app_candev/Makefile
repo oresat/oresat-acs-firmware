@@ -94,8 +94,7 @@ PROJECT = app_candev
 # Imported source files and paths
 CONF_DIR  = conf
 TOOLCHAIN = ../../toolchain
-CHIBIOS   = ../../../ChibiOS-RT
-#CHIBIOS   = ../../../ChibiOS-RT
+CHIBIOS   = ../../../ChibiOS
 BOARD     = ST_NUCLEO32_F042K6
 BOARDDIR  = ../boards/$(BOARD)
 
