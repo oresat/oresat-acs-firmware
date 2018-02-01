@@ -6,7 +6,8 @@
 # Compiler options here.
 ifeq ($(USE_OPT),)
 	# This will make very big object
-	USE_OPT = -O2 -ggdb -fomit-frame-pointer -falign-functions=16
+	# USE_OPT = -O2 -ggdb -fomit-frame-pointer -falign-functions=16
+	USE_OPT = -ggdb -fomit-frame-pointer -falign-functions=16
 
 	# This is smaller object
 	# USE_OPT = -Os -fomit-frame-pointer -falign-functions=16
@@ -93,37 +94,36 @@ PROJECT = app_blinky
 # Imported source files and paths
 CONF_DIR  = conf
 TOOLCHAIN = ../../toolchain
-CHIBIOS   = ../../../ChibiOS-RT
-#BOARD     = ST_NUCLEO64_F411RE
-BOARD     = ST_NUCLEO64_F446RE
+CHIBIOS   = ../../../ChibiOS
+BOARD     = ST_NUCLEO32_F042K6
 BOARDDIR  = ../boards/$(BOARD)
 
-# Nucleo64 specific files
-include $(TOOLCHAIN)/nucleo64.mk
+# Nucleo32 specific files
+include $(TOOLCHAIN)/nucleo32.mk
 
 include $(BOARDDIR)/board.mk
 
 # Startup files
-include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f4xx.mk
+include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f0xx.mk
 # include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_stm32f0xx.mk
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
-include $(CHIBIOS)/os/hal/ports/STM32/STM32F4xx/platform.mk
+include $(CHIBIOS)/os/hal/ports/STM32/STM32F0xx/platform.mk
 include $(CHIBIOS)/os/hal/osal/rt/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
-include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
+include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v6m.mk
 # include $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v6m.mk
 
 # Other files (optional).
 include $(CHIBIOS)/test/rt/test.mk
 
 # Define linker script file here
-LDSCRIPT= $(STARTUPLD)/STM32F446xE.ld
+LDSCRIPT= $(STARTUPLD)/STM32F042x6.ld
 
 # Add application source directories here
-APP_SRCS = $(wildcard $(NUCLEO64_UTIL)/*.c)
-APP_SRCS += $(wildcard $(NUCLEO64_BOARDS)/*.c)
+APP_SRCS = $(wildcard $(NUCLEO32_UTIL)/*.c)
+APP_SRCS += $(wildcard $(NUCLEO32_BOARDS)/*.c)
 
 CSRC = $(STARTUPSRC) \
        $(KERNSRC) \
@@ -170,11 +170,11 @@ INCDIR = $(CHIBIOS)/os/license \
 	 $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
 	 $(CHIBIOS)/os/hal/lib/streams $(CHIBIOS)/os/various \
 	 $(CONF_DIR) \
-	 $(NUCLEO64_UTIL)/include \
-	 $(NUCLEO64_BOARDS)/include \
+	 $(NUCLEO32_UTIL)/include \
+	 $(NUCLEO32_BOARDS)/include \
 	 $(CHIBIOS)/os/various
 
-# $(NUCLEO64_SATSHELL)/include \
+# $(NUCLEO32_SATSHELL)/include \
 
 #
 # Project, sources and paths
@@ -232,8 +232,11 @@ CPPWARN = -Wall -Wextra -Wundef
 #
 
 # List all user C define here, like -D_DEBUG=1
-UDEFS = -DGIT_COMMIT_VERSION=$(NUCLEO64_VERSION)
+UDEFS = -DGIT_COMMIT_VERSION=$(NUCLEO32_VERSION)
 #UDEFS += -DDBG_MSG_ENABLE=1
+
+ORESAT_CAN_ADDRESS=0xA0
+UDEFS += -DMY_CAN_ADDRESS=$(ORESAT_CAN_ADDRESS)
 
 # Define ASM defines here
 UADEFS =
@@ -260,5 +263,5 @@ include $(RULESPATH)/rules.mk
 # https://community.arm.com/processors/b/blog/posts/armv6-m-vs-armv7-m---unpacking-the-microcontrollers
 # include $(PORTRULESPATH)/port_v6m.mk
 
-include $(NUCLEO64_RULES)
+include $(NUCLEO32_RULES)
 

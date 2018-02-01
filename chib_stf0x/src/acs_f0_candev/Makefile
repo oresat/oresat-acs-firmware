@@ -89,7 +89,7 @@ endif
 #
 
 # Define project name here
-PROJECT = app_candev
+PROJECT = acd_f0_candev
 
 # Imported source files and paths
 CONF_DIR  = conf
