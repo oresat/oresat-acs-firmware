@@ -16,20 +16,17 @@
 
 #include "ch.h"
 #include "hal.h"
-#include "board.h"
 
 static void pwmpcb(PWMDriver *pwmp) {
 
   (void)pwmp;
-//  palClearPad(GPIOC, GPIOC_LED4);
-  palClearPad(GPIOC, GPIOC_PIN8);//this might be wrong
+  palClearPad(GPIOD, GPIOD_PIN5);
 }
 
 static void pwmc1cb(PWMDriver *pwmp) {
 
   (void)pwmp;
-//  palSetPad(GPIOC, GPIOC_LED4);
-  palSetPad(GPIOC, GPIOC_PIN8);//this might be wrong
+  palSetPad(GPIOD, GPIOD_PIN5);
 }
 
 static PWMConfig pwmcfg = {
@@ -50,21 +47,14 @@ icucnt_t last_width, last_period;
 
 static void icuwidthcb(ICUDriver *icup) {
 
-//  palSetPad(GPIOC, GPIOC_LED3);
-  palSetPad(GPIOC, GPIOC_PIN9);//this might be wrong
+  palSetPad(GPIOD, GPIOD_PIN4);
   last_width = icuGetWidthX(icup);
 }
 
 static void icuperiodcb(ICUDriver *icup) {
 
-//  palClearPad(GPIOC, GPIOC_LED3);
-  palClearPad(GPIOC, GPIOC_PIN9);//this might be wrong
+  palClearPad(GPIOD, GPIOD_PIN4);
   last_period = icuGetPeriodX(icup);
-}
-
-static void icuoverflowcb(ICUDriver *icup) {
-
-  (void)icup;
 }
 
 static ICUConfig icucfg = {
@@ -72,7 +62,7 @@ static ICUConfig icucfg = {
   10000,                                    /* 10kHz ICU clock frequency.   */
   icuwidthcb,
   icuperiodcb,
-  icuoverflowcb,
+  NULL,
   ICU_CHANNEL_1,
   0
 };
@@ -94,15 +84,15 @@ int main(void) {
 
   /*
    * Initializes the PWM driver 2 and ICU driver 3.
-   * GPIOA6 is the ICU input (CH1).
-   * GPIOA8 is the PWM output (CH1).
+   * GPIOA8 is the PWM output.
+   * GPIOC6 is the ICU input.
    * The two pins have to be externally connected together.
    */
   pwmStart(&PWMD1, &pwmcfg);
   pwmEnablePeriodicNotification(&PWMD1);
-  palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(2));
+  palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(1));
   icuStart(&ICUD3, &icucfg);
-  palSetPadMode(GPIOA, 6, PAL_MODE_ALTERNATE(1));
+  palSetPadMode(GPIOC, 6, PAL_MODE_ALTERNATE(2));
   icuStartCapture(&ICUD3);
   icuEnableNotifications(&ICUD3);
   chThdSleepMilliseconds(2000);
@@ -140,10 +130,8 @@ int main(void) {
   pwmStop(&PWMD1);
   icuStopCapture(&ICUD3);
   icuStop(&ICUD3);
-//  palClearPad(GPIOC, GPIOC_LED3);
-  palClearPad(GPIOC, GPIOC_PIN9);//this might be wrong
-//  palClearPad(GPIOC, GPIOC_LED4);
-  palClearPad(GPIOC, GPIOC_PIN8); //this might be wrong
+  palClearPad(GPIOD, GPIOD_PIN4);
+  palClearPad(GPIOD, GPIOD_PIN5);
 
   /*
    * Normal main() thread activity, in this demo it does nothing.

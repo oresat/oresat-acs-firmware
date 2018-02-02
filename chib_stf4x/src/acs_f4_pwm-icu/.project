@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>STM32F0xx-PWM-ICU</name>
+	<name>STM32F4xx-PWM-ICU</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -27,7 +27,7 @@
 		<link>
 			<name>board</name>
 			<type>2</type>
-			<locationURI>CHIBIOS/os/hal/boards/ST_STM32F0_DISCOVERY</locationURI>
+			<locationURI>CHIBIOS/os/hal/boards/ST_STM32F4_DISCOVERY</locationURI>
 		</link>
 		<link>
 			<name>os</name>

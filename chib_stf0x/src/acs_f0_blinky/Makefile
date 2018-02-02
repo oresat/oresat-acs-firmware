@@ -89,7 +89,7 @@ endif
 #
 
 # Define project name here
-PROJECT = app_blinky
+PROJECT = acs_f0_blinky
 
 # Imported source files and paths
 CONF_DIR  = conf

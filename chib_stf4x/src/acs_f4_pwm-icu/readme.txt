@@ -1,18 +1,18 @@
 *****************************************************************************
-** ChibiOS/HAL - PWM-ICU drivers demo for STM32F0xx.                       **
+** ChibiOS/HAL - PWM-ICU drivers demo for STM32F4xx.                       **
 *****************************************************************************
 
 ** TARGET **
 
-The demo will on an STMicroelectronics STM32F0-Discovery board.
+The demo runs on an STMicroelectronics STM32F4-Discovery board.
 
 ** The Demo **
 
-The application demonstrates the use of the STM32F0xx PWM-ICU drivers.
+The application demonstrates the use of the STM32F4xx PWM-ICU drivers.
 
 ** Board Setup **
 
-- Connect PA8 and PA6 together.
+- Connect PA8 and PC6 together.
 
 ** Build Procedure **
 
