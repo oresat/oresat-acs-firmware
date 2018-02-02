@@ -6,11 +6,3 @@ Also supports M4
 
 git config --global user.name 'First Last'  
 git config --global user.email 'first.last@example.com'  
-
-# Switching to ChibiOS/trunk  
-
-cd to oresat-acs-firmware/ChibiOS and execute:  
-git checkout -b trunk origin/trunk  
-
-
-
