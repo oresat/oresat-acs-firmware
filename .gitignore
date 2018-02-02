@@ -1,6 +1,7 @@
 # Other stuff
 *.lst
 *.swp
+*.swo
 compile_commands.json
 
 # Prerequisites
