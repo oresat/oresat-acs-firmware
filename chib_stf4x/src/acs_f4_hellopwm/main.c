@@ -31,6 +31,10 @@ static THD_FUNCTION(Thread1, arg) {
 }
 //*/
 
+
+// PWM and PWMConfig structure
+// http://chibios.sourceforge.net/html/struct_p_w_m_config.html
+
 static void pwmpcb(PWMDriver *pwmp) { // period call back
 
   (void)pwmp;
@@ -57,15 +61,18 @@ static PWMConfig pwmcfg = {
   0
 };
 
-icucnt_t last_width, last_period;
+// Input Capture Unit (ICU)
+// http://chibios.sourceforge.net/html/group___i_c_u.html
 
-static void icuwidthcb(ICUDriver *icup) {
+icucnt_t last_width, last_period; // ICU counter type
+
+static void icuwidthcb(ICUDriver *icup) { // ICU width callback
 
   palSetPad(GPIOD, GPIOD_PIN4);
   last_width = icuGetWidthX(icup);
 }
 
-static void icuperiodcb(ICUDriver *icup) {
+static void icuperiodcb(ICUDriver *icup) { // ICU period callback
 
   palClearPad(GPIOD, GPIOD_PIN4);
   last_period = icuGetPeriodX(icup);
