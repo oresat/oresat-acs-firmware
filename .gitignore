@@ -1,8 +1,10 @@
-# Other stuff
+# Chad's ignore list
 *.lst
 *.swp
 *.swo
 compile_commands.json
+.project
+.cproject
 
 # Prerequisites
 *.d
