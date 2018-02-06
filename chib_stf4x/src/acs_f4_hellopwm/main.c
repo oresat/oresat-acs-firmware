@@ -100,8 +100,8 @@ int main(void) {
    * - Kernel initialization, the main() function becomes a thread and the
    *   RTOS is active.
    */
-  halInit();
-  chSysInit();
+  halInit(); // http://chibios.sourceforge.net/html/group___h_a_l.html
+  chSysInit(); // http://chibios.sourceforge.net/html/group__system.html
 
   /*
    * Initializes the PWM driver 2 and ICU driver 3.
@@ -109,6 +109,8 @@ int main(void) {
    * GPIOC6 is the ICU input.
    * The two pins have to be externally connected together.
    */
+
+	// PWM driver: http://chibios.sourceforge.net/html/group___p_w_m.html
   pwmStart(&PWMD1, &pwmcfg);
   pwmEnablePeriodicNotification(&PWMD1);
   palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(1));
