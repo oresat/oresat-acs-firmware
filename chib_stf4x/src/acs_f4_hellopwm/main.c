@@ -38,6 +38,7 @@ static THD_FUNCTION(Thread1, arg) {
 static void pwmpcb(PWMDriver *pwmp) { // period call back
 
   (void)pwmp;
+  //palClearPad(GPIOB, GPIOB_PIN2);
   palClearPad(GPIOD, GPIOD_PIN5);
 }
 
@@ -45,6 +46,7 @@ static void pwmc1cb(PWMDriver *pwmp) { // channel 1 callback
 
   (void)pwmp;
   palSetPad(GPIOD, GPIOD_PIN5);
+  //palSetPad(GPIOB, GPIOB_PIN2);
 }
 
 static PWMConfig pwmcfg = {
@@ -123,7 +125,10 @@ int main(void) {
   /*
    * Starts the PWM channel 0 using 75% duty cycle.
    */
+  //pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 7500));
+  //pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 5000));
   pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 7500));
+//	pwmChangePeriod (&PWMD1, 5000);
   pwmEnableChannelNotification(&PWMD1, 0);
   chThdSleepMilliseconds(5000);
 
