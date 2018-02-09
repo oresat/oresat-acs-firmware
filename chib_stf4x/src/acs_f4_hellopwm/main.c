@@ -39,13 +39,13 @@ static void pwmpcb(PWMDriver *pwmp) { // period call back
 
   (void)pwmp;
   //palClearPad(GPIOB, GPIOB_PIN2);
-  palClearPad(GPIOD, GPIOD_PIN5);
+  palClearPad(GPIOA, GPIOA_LED_GREEN);
 }
 
 static void pwmc1cb(PWMDriver *pwmp) { // channel 1 callback
 
   (void)pwmp;
-  palSetPad(GPIOD, GPIOD_PIN5);
+  palSetPad(GPIOA, GPIOA_LED_GREEN);
   //palSetPad(GPIOB, GPIOB_PIN2);
 }
 

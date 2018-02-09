@@ -23,13 +23,13 @@
 static void pwmpcb(PWMDriver *pwmp) { // period call back
 
   (void)pwmp;
-  palClearPad(GPIOD, GPIOA_LED_GREEN);
+  palClearPad(GPIOA, GPIOA_LED_GREEN);
 }
 
 static void pwmc1cb(PWMDriver *pwmp) { // channel 1 callback
 
   (void)pwmp;
-  palSetPad(GPIOD, GPIOA_LED_GREEN);
+  palSetPad(GPIOA, GPIOA_LED_GREEN);
 }
 
 static PWMConfig pwmcfg = {
