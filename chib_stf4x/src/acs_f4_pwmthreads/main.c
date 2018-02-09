@@ -20,7 +20,7 @@
 // PWM and PWMConfig structure
 // http://chibios.sourceforge.net/html/struct_p_w_m_config.html
 
-static void pwmpcb(PWMDriver *pwmp) { // period call back
+static void pwmp1cb(PWMDriver *pwmp) { // period call back
 
   (void)pwmp;
   palClearPad(GPIOA, GPIOA_LED_GREEN);
@@ -32,10 +32,10 @@ static void pwmc1cb(PWMDriver *pwmp) { // channel 1 callback
   palSetPad(GPIOA, GPIOA_LED_GREEN);
 }
 
-static PWMConfig pwmcfg = {
+static PWMConfig pwmcfg1 = {
   10000,                                    /* 10kHz PWM clock frequency.   */
   10000,                                    /* Initial PWM period 1S.       */
-  pwmpcb,
+  pwmp1cb,
   {
    {PWM_OUTPUT_ACTIVE_HIGH, pwmc1cb},
    {PWM_OUTPUT_DISABLED, NULL},
@@ -46,11 +46,34 @@ static PWMConfig pwmcfg = {
   0
 };
 
-static THD_WORKING_AREA(pwmThread1_wa, 128);
-static THD_FUNCTION(pwmThread1, arg) {
-  (void)arg;
-  chRegSetThreadName("pwm1");
-	  pwmStart(&PWMD1, &pwmcfg);
+static void pwmp2cb(PWMDriver *pwmp) { // period call back
+
+  (void)pwmp;
+  palClearPad(GPIOA, GPIOA_LED_GREEN);
+}
+
+static void pwmc2cb(PWMDriver *pwmp) { // channel 1 callback
+
+  (void)pwmp;
+  palSetPad(GPIOA, GPIOA_LED_GREEN);
+}
+
+static PWMConfig pwmcfg2 = {
+  10000,                                    /* 10kHz PWM clock frequency.   */
+  10000,                                    /* Initial PWM period 1S.       */
+  pwmp2cb,
+  {
+   {PWM_OUTPUT_ACTIVE_HIGH, pwmc2cb},
+   {PWM_OUTPUT_DISABLED, NULL},
+   {PWM_OUTPUT_DISABLED, NULL},
+   {PWM_OUTPUT_DISABLED, NULL}
+  },
+  0,
+  0
+};
+
+static void pwm1(void){
+	pwmStart(&PWMD1, &pwmcfg1);
   pwmEnablePeriodicNotification(&PWMD1);
   palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(1));
   chThdSleepMilliseconds(2000);
@@ -63,13 +86,13 @@ static THD_FUNCTION(pwmThread1, arg) {
   pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 7500));
 //	pwmChangePeriod (&PWMD1, 5000);
   pwmEnableChannelNotification(&PWMD1, 0);
-  chThdSleepMilliseconds(5000);
+//  chThdSleepMilliseconds(5000);
   /*
    * Changes PWM period to half second the duty cycle becomes 50%
    * implicitly.
    */
 //  pwmChangePeriod(&PWMD1, 5000);
-//  chThdSleepMilliseconds(5000);
+  chThdSleepMilliseconds(5000);
 
   /*
    * Disables channel 0 and stops the drivers.
@@ -85,6 +108,31 @@ static THD_FUNCTION(pwmThread1, arg) {
 //  while (true) {
 //    chThdSleepMilliseconds(500);
 // }
+}
+
+static void pwm2(void){
+	pwmStart(&PWMD1, &pwmcfg2);
+  pwmEnablePeriodicNotification(&PWMD1);
+  palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(1));
+  chThdSleepMilliseconds(2000);
+
+  /*
+   * Starts the PWM channel 0 using 75% duty cycle.
+   */
+  //pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 7500));
+  //pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 5000));
+  pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 7500));
+//	pwmChangePeriod (&PWMD1, 5000);
+  pwmEnableChannelNotification(&PWMD1, 0);
+  chThdSleepMilliseconds(5000);
+}
+
+static THD_WORKING_AREA(pwmThread1_wa, 128);
+static THD_FUNCTION(pwmThread1, arg) {
+  (void)arg;
+  chRegSetThreadName("pwm");
+	pwm1();
+	pwm2();
 }
 
 int main(void) {
