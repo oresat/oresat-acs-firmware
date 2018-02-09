@@ -40,13 +40,13 @@
 static void pwmpcb(PWMDriver *pwmp) { // period call back
 
   (void)pwmp;
-  palClearPad(GPIOD, GPIOD_PIN5);
+  palClearPad(GPIOD,GPIOA_LED_GREEN);
 }
 
 static void pwmc1cb(PWMDriver *pwmp) { // channel 1 callback
 
   (void)pwmp;
-  palSetPad(GPIOD, GPIOD_PIN5);
+  palSetPad(GPIOD,GPIOA_LED_GREEN);
 }
 
 static PWMConfig pwmcfg = {
@@ -62,6 +62,51 @@ static PWMConfig pwmcfg = {
   0,
   0
 };
+
+static void pwm1(void){
+	pwmStart(&PWMD1, &pwmcfg);
+  pwmEnablePeriodicNotification(&PWMD1);
+  palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(1));
+  chThdSleepMilliseconds(2000);
+
+  /*
+   * Starts the PWM channel 0 using 75% duty cycle.
+   */
+  //pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 7500));
+  //pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 5000));
+  pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 7500));
+//	pwmChangePeriod (&PWMD1, 5000);
+  pwmEnableChannelNotification(&PWMD1, 0);
+//  chThdSleepMilliseconds(5000);
+  /*
+   * Changes PWM period to half second the duty cycle becomes 50%
+   * implicitly.
+   */
+//  pwmChangePeriod(&PWMD1, 5000);
+  chThdSleepMilliseconds(5000);
+
+  /*
+   * Disables channel 0 and stops the drivers.
+   */
+//  pwmDisableChannel(&PWMD1, 0);
+//  pwmStop(&PWMD1);
+//  icuStopCapture(&ICUD3);
+//  icuStop(&ICUD3);
+//////////////  palClearPad(GPIOD, GPIOD_PIN4);
+//  palClearPad(GPIOD, GPIOD_PIN5);
+
+
+//  while (true) {
+//    chThdSleepMilliseconds(500);
+// }
+}
+
+static THD_WORKING_AREA(pwmThread1_wa, 128);
+static THD_FUNCTION(pwmThread1, arg) {
+  (void)arg;
+  chRegSetThreadName("pwm");
+	pwm1();
+}
 
 /*
  * Serial configuration
@@ -246,7 +291,7 @@ static void main_app(void)
     chprintf(DEBUG_CHP, "\r\nStarting RX/TX threads...\r\n");
     chThdCreateStatic(can_rx_wa, sizeof(can_rx_wa), NORMALPRIO + 7, can_rx, NULL);
     chThdCreateStatic(can_tx_wa, sizeof(can_tx_wa), NORMALPRIO + 7, can_tx, NULL);
-
+		chThdCreateStatic(pwmThread1, sizeof(pwmThread1_wa), NORMALPRIO, pwmThread1, NULL);
     /*
      * Begin main loop
      */
