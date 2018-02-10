@@ -132,7 +132,7 @@ static THD_FUNCTION(pwmThread1, arg) {
   (void)arg;
   chRegSetThreadName("pwm");
 	pwm1();
-	pwm2();
+//	pwm2();
 }
 
 int main(void) {

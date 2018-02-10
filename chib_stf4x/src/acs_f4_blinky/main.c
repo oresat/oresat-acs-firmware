@@ -28,26 +28,13 @@ static THD_FUNCTION(Thread1, arg) {
   chRegSetThreadName("blinker");
   while (true) {
     palClearPad(GPIOA, GPIOA_LED_GREEN);
-   // palClearPad(GPIOA, GPIOA_LED_RED);
     chThdSleepMilliseconds(500);
     palSetPad(GPIOA, GPIOA_LED_GREEN);
-   // palSetPad(GPIOA, GPIOA_LED_RED);
     chThdSleepMilliseconds(500);
   }
 }
 
-/*
- * Application entry point.
- */
 int main(void) {
-
-  /*
-   * System initializations.
-   * - HAL initialization, this also initializes the configured device drivers
-   *   and performs the board-specific initializations.
-   * - Kernel initialization, the main() function becomes a thread and the
-   *   RTOS is active.
-   */
   halInit();
   chSysInit();
 
@@ -57,7 +44,8 @@ int main(void) {
   sdStart(&SD2, NULL);
 
   /*
-   * Set the GPIOA_LED_GREEN to pushpull so we can toggle the LED. Overrides default SPI configuration
+   * Set the GPIOA_LED_GREEN to pushpull so we can toggle the LED. 
+	 * Overrides default SPI configuration
    */
   palSetPadMode(GPIOA, GPIOA_LED_GREEN, PAL_MODE_OUTPUT_PUSHPULL);
 
@@ -66,16 +54,7 @@ int main(void) {
    */
   chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
-  /*
-   * Normal main() thread activity, in this demo it does nothing except
-   * sleeping in a loop and check the button state.
-   */
-  while (true) {
-      //if (!palReadPad(GPIOC, GPIOC_BUTTON))
-        //test_execute((BaseSequentialStream *)&SD2);
-    /*palClearPad(GPIOA, GPIOA_LED_GREEN);*/
-    /*chThdSleepMilliseconds(500);*/
-    /*palSetPad(GPIOA, GPIOA_LED_GREEN);*/
-    chThdSleepMilliseconds(1500);
+   while (true) {
+     chThdSleepMilliseconds(1500);
   }
 }
