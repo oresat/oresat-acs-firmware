@@ -46,7 +46,7 @@ static THD_WORKING_AREA(pwmThread1_wa, 128);
 static THD_FUNCTION(pwmThread1, arg) {
   (void)arg;
   chRegSetThreadName("pwm");
-	// initial pwm driver
+	// initialize pwm driver
   pwmStart(&PWMD1, &pwmcfg);
   pwmEnablePeriodicNotification(&PWMD1);
   palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(1));
