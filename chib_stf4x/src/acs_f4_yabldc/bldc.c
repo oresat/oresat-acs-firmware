@@ -12,8 +12,6 @@
 
 #include "bldc.h"
 
-
-
 static adcsample_t zeroCrossing;
 
 static void cbAdcZeroSense(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
@@ -44,7 +42,6 @@ static const ADCConversionGroup adcZeroSense = {
   ADC_SQR3_SQ1_N(ADC_CHANNEL_IN1)
 };
 
-
 /*
  * PWM Scheme:  High PWM, Lo ON
  * Time0 Time1
@@ -72,7 +69,8 @@ static void cdPwmCounterReset(PWMDriver *pwmp) {
 
   // Calculate and initiate the state change
   // Consider moving this to a thread to further slim down the ISR callback
-  if (!halIsCounterWithin(bldc.prevStateChange, bldc.nextStateChange)) {
+  if (!chSysIsCounterWithinX(chSysGetRealtimeCounterX(), bldc.prevStateChange, bldc.nextStateChange)) {
+  //if (!halIsCounterWithin(bldc.prevStateChange, bldc.nextStateChange)) {
 
     // Prepare next state
     if (bldc.directionFwd) {
@@ -92,7 +90,6 @@ static void cdPwmCounterReset(PWMDriver *pwmp) {
   chSysUnlockFromISR();
 }
 
-
 /* The PWM Channel compare will put the PWM system in "IDLE" state, which
  * is defined as the state when the channel is active and a compare event
  * has taken place.
@@ -110,7 +107,6 @@ static void cbPwmCh0Compare(PWMDriver *pwmp) {
   bldc.pwmOutT1 = (*bldc.scheme)[bldc.state][1];
   chSysUnlockFromISR();
 }
-
 
 static void pcbPwmAdcTrigger(PWMDriver *pwmp) {
   (void) pwmp;
@@ -131,7 +127,6 @@ static PWMConfig pwmcfg = {
 	0
 };
 
-
 /* This function will start the PWM generator.
  */
 extern void bldcInit(void) {
@@ -139,8 +134,11 @@ extern void bldcInit(void) {
   bldc.state = 0;          //Default to first state
   bldc.nextState = 0;
   bldc.directionFwd = TRUE;
-  bldc.stateChangeInterval = MS2RTT(20);
-  bldc.prevStateChange = halGetCounterValue();
+  //bldc.stateChangeInterval = OSAL_MS2RTC(STM32_HSECLK,20);
+  //bldc.stateChangeInterval = MS2RTT(20);
+  bldc.stateChangeInterval = MS2RTC(STM32_HSECLK,20);
+  bldc.prevStateChange = chSysGetRealtimeCounterX();
+  //bldc.prevStateChange = halGetCounterValue();
   bldc.nextStateChange = bldc.prevStateChange + bldc.stateChangeInterval;
   bldc.pwmOutT0 = 0;
   bldc.pwmOutT1 = 0;
@@ -172,7 +170,6 @@ extern void bldcStart(void) {
   pwmEnableChannel (&PWMD1, PWM_PULSE0_CH, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, bldc.dutyCycle));
 }
 
-
 // This function should probably be replaced by a Mailbox and a thread.
 extern void bldcSetDutyCycle(uint32_t dutyCycle) {
   if (dutyCycle > PWM_MAX_DUTY_CYCLE) {
@@ -190,5 +187,6 @@ extern void bldcSetRPM (uint32_t rpm) {
   uint32_t uspc;  // us pr Commutations
 
   uspc = (1000000*60 / (rpm*bldc.stateCount));
-  bldc.stateChangeInterval = US2RTT(uspc);
+  bldc.stateChangeInterval = US2RTC(STM32_HSECLK,uspc);
+  //bldc.stateChangeInterval = OSAL_US2RTC(uspc);
 }
