@@ -24,32 +24,33 @@
 #define W_High
 #define W_Low
 
-static void pwm1pcb(PWMDriver *pwmp) { // period call back
+static void pwmpcb(PWMDriver *pwmp) { // period call back
   (void)pwmp;
   palClearPad(GPIOA, GPIOA_LED_GREEN);
 }
 
-static void pwm1c1cb(PWMDriver *pwmp) { // channel 1 callback
+static void pwmc0cb(PWMDriver *pwmp) { // channel 1 callback
   (void)pwmp;
   palSetPad(GPIOA, GPIOA_LED_GREEN);
 }
 
-static PWMConfig pwm1cfg = {
+static PWMConfig pwmcfg = {
   10000,                                    /* 10kHz PWM clock frequency.   */
   10000,                                    /* Initial PWM period 1S.       */
-  pwm1pcb,
+  pwmpcb,
   {
-   {PWM_OUTPUT_ACTIVE_HIGH, pwm1c1cb},
+   {PWM_OUTPUT_ACTIVE_HIGH, pwmc0cb},
    {PWM_OUTPUT_DISABLED, NULL},
    {PWM_OUTPUT_DISABLED, NULL},
    {PWM_OUTPUT_DISABLED, NULL}
   },
   0,
-  0
+  0,
+	0 // needed with advanced and newer ChibiOS
 };
 
-static void startBLDC(void){
-  pwmStart(&PWMD1, &pwm1cfg);
+static void bldcStart(void){
+  pwmStart(&PWMD1, &pwmcfg);
   pwmEnablePeriodicNotification(&PWMD1);
   palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(1));
   chThdSleepMilliseconds(2000);
@@ -60,37 +61,18 @@ static void startBLDC(void){
   chThdSleepMilliseconds(5000);
 }
 
-static void stopBLDC(void){
+static void bldcStop(void){
 // 	Disables channel 0 and stops the drivers.
   pwmDisableChannel(&PWMD1, 0);
   pwmStop(&PWMD1);
   palClearPad(GPIOA, GPIOA_LED_GREEN);
 }
 
-/*
-static void pwm1(void){
-  pwmStart(&PWMD1, &pwm1cfg);
-  pwmEnablePeriodicNotification(&PWMD1);
-  palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(1));
-  chThdSleepMilliseconds(2000);
-  //Starts the PWM channel 0 using 50% duty cycle implicitly
-  pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 5000));
-//	pwmChangePeriod (&PWMD1, 5000);
-  pwmEnableChannelNotification(&PWMD1, 0);
-  chThdSleepMilliseconds(5000);
-// 	Disables channel 0 and stops the drivers.
-//  pwmDisableChannel(&PWMD1, 0);
-//  pwmStop(&PWMD1);
-//  palClearPad(GPIOA, GPIOA_LED_GREEN);
-
-}
-*/
-
 static THD_WORKING_AREA(pwmThread1_wa, 128);
 static THD_FUNCTION(pwmThread1, arg) {
   (void)arg;
   chRegSetThreadName("pwm");
-	startBLDC();
+	bldcStart();
 	while(true){
   	chThdSleepMilliseconds(500);
 	}

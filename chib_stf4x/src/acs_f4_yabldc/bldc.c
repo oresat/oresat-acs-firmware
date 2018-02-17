@@ -67,7 +67,7 @@ BldcConfig  bldc;
 static void cdPwmCounterReset(PWMDriver *pwmp) {
   (void) pwmp;
 
-  chSysLockFromIsr();
+  chSysLockFromISR();
   palWriteGroup (PWM_OUT_PORT, PWM_OUT_PORT_MASK, PWM_OUT_OFFSET,  bldc.pwmOutT0);
 
   // Calculate and initiate the state change
@@ -89,7 +89,7 @@ static void cdPwmCounterReset(PWMDriver *pwmp) {
     bldc.prevStateChange = bldc.nextStateChange;
     bldc.nextStateChange += bldc.stateChangeInterval;
   }
-  chSysUnlockFromIsr();
+  chSysUnlockFromISR();
 }
 
 
@@ -100,7 +100,7 @@ static void cdPwmCounterReset(PWMDriver *pwmp) {
 static void cbPwmCh0Compare(PWMDriver *pwmp) {
   (void) pwmp;
 
-  chSysLockFromIsr();
+  chSysLockFromISR();
   palWriteGroup (PWM_OUT_PORT, PWM_OUT_PORT_MASK, PWM_OUT_OFFSET,  bldc.pwmOutT1);
 
   // Do the state change before the next cycle.
@@ -108,7 +108,7 @@ static void cbPwmCh0Compare(PWMDriver *pwmp) {
   bldc.state = bldc.nextState;
   bldc.pwmOutT0 = (*bldc.scheme)[bldc.state][0];
   bldc.pwmOutT1 = (*bldc.scheme)[bldc.state][1];
-  chSysUnlockFromIsr();
+  chSysUnlockFromISR();
 }
 
 
