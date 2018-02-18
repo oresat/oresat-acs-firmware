@@ -40,8 +40,8 @@ typedef struct {
 
 //#define PWM_CLOCK_FREQ        16800000
 //#define PWM_FREQ              5000
-#define PWM_CLOCK_FREQ        1000
-#define PWM_FREQ              1000
+#define PWM_CLOCK_FREQ        10000
+#define PWM_FREQ              10000
 #define PWM_PERIOD            PWM_CLOCK_FREQ/PWM_FREQ
 
 #define PWM_MAX_DUTY_CYCLE    9500
@@ -52,7 +52,7 @@ typedef struct {
 
 #define PWM_OUT_PORT_MASK   0x3F
 //#define PWM_OUT_PORT        GPIOE
-#define PWM_OUT_PORT        GPIOA
+#define PWM_OUT_PORT        GPIOB
 #define PWM_OUT_OFFSET      8
 
 

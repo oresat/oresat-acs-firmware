@@ -20,7 +20,7 @@ static void cbAdcZeroSense(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 
   adcsample_t  res;
 
-  res = *buffer;
+	res = *buffer;
 }
 
 /*
@@ -36,7 +36,7 @@ static const ADCConversionGroup adcZeroSense = {
   0,                        /* CR1 */
   ADC_CR2_SWSTART,          /* CR2 */
   0,
-  ADC_SMPR2_SMP_AN1(ADC_SAMPLE_15),                        /* SMPR2 */
+  ADC_SMPR2_SMP_AN1(ADC_SAMPLE_15),  /* SMPR2 */
   ADC_SQR1_NUM_CH(1),
   0,                        /* SQR2 */
   ADC_SQR3_SQ1_N(ADC_CHANNEL_IN1)
@@ -118,10 +118,10 @@ static PWMConfig pwmcfg = {
 	PWM_PERIOD,
 	&cdPwmCounterReset,
 	{
-	{PWM_OUTPUT_ACTIVE_HIGH, &cbPwmCh0Compare},
+	{PWM_OUTPUT_ACTIVE_HIGH, cbPwmCh0Compare},
 	{PWM_OUTPUT_DISABLED, NULL},
 	{PWM_OUTPUT_DISABLED, NULL},
-	{PWM_OUTPUT_ACTIVE_HIGH, &pcbPwmAdcTrigger}
+	{PWM_OUTPUT_ACTIVE_HIGH, pcbPwmAdcTrigger}
 	},
 	0,
 	0
@@ -186,7 +186,8 @@ extern void bldcSetDutyCycle(uint32_t dutyCycle) {
 extern void bldcSetRPM (uint32_t rpm) {
   uint32_t uspc;  // us pr Commutations
 
-  uspc = (1000000*60 / (rpm*bldc.stateCount));
+  uspc = (100*60 / (rpm*bldc.stateCount));
+  //uspc = (1000000*60 / (rpm*bldc.stateCount));
   bldc.stateChangeInterval = US2RTC(STM32_HSECLK,uspc);
   //bldc.stateChangeInterval = OSAL_US2RTC(uspc);
 }
