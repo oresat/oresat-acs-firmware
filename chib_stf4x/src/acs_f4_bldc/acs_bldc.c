@@ -29,17 +29,13 @@ static PWMConfig pwmcfg = {
 
 extern void bldcInit(void){
   palSetPadMode(GPIOA, GPIOA_LED_GREEN, PAL_MODE_OUTPUT_PUSHPULL);
-
-	pwmEnablePeriodicNotification(&PWMD1);
+	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_ON);
+	//palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_OFF);
   palSetGroupMode(
 			PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PAL_MODE_OUTPUT_PUSHPULL);
-	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_OFF);
-
-  chThdSleepMilliseconds(2000);
-
+  pwmStart(&PWMD1, &pwmcfg);
+	pwmEnablePeriodicNotification(&PWMD1);
   pwmEnableChannel(&PWMD1,0,PWM_PERCENTAGE_TO_WIDTH(&PWMD1,5000));
-  pwmEnableChannelNotification(&PWMD1, 0);
-  chThdSleepMilliseconds(5000);
 }
 
 /*
@@ -57,16 +53,15 @@ extern void bldcStart(void){
 //*/
 
 extern void bldcStart(void){
-  pwmStart(&PWMD1, &pwmcfg);
-/*
-	pwmEnablePeriodicNotification(&PWMD1);
-  palSetGroupMode(
-			PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PAL_MODE_OUTPUT_PUSHPULL);
-	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_OFF);
+//*
+ // palSetGroupMode(
+//			PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PAL_MODE_ALTERNATE(1));
+//			PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PAL_MODE_OUTPUT_PUSHPULL);
+//	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_ON);
+	//palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_OFF);
 
   chThdSleepMilliseconds(2000);
 
-  pwmEnableChannel(&PWMD1,0,PWM_PERCENTAGE_TO_WIDTH(&PWMD1,5000));
   pwmEnableChannelNotification(&PWMD1, 0);
   chThdSleepMilliseconds(5000);
 //*/

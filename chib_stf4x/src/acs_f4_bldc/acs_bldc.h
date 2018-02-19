@@ -1,6 +1,23 @@
 #ifndef ADC_BLDC_H
 #define ADC_BLDC_H
 
+typedef struct {
+  uint8_t   (*scheme)[][3];
+  uint8_t   pwmOutT0;
+  uint8_t   pwmOutT1;
+  uint32_t  state;
+  uint32_t  nextState;
+  uint32_t  stateCount;
+  uint32_t  prevStateChange;
+  uint32_t  nextStateChange;
+  uint32_t  stateChangeInterval;
+  bool      directionFwd;
+  uint32_t  dutyCycle;
+} BldcConfig;
+
+#define BLDC_COMM_STACK_SIZE    1024
+
+#define PWM_ON			0x111111
 #define PWM_OFF     0b000000
 #define PWM_UN      0b000001
 #define PWM_UP      0b000010
@@ -10,12 +27,19 @@
 #define PWM_WP      0b100000
 #define PWM_EXPECT_ZERO     TRUE  
 
+//#define PWM_CLOCK_FREQ    16800000
 #define PWM_CLOCK_FREQ      10000 
+//#define PWM_FREQ          5000
 #define PWM_FREQ            10000
 #define PWM_PERIOD          PWM_CLOCK_FREQ/PWM_FREQ
 
+#define PWM_MAX_DUTY_CYCLE    9500
+
+#define STATE_CHANGE_LIMIT_US 10*1000000/PWM_FREQ
+
 #define PWM_OUT_PORT_MASK   0x3F
-#define PWM_OUT_PORT        GPIOA
+//#define PWM_OUT_PORT        GPIOA
+#define PWM_OUT_PORT        GPIOB
 #define PWM_OUT_OFFSET      8
 
 
