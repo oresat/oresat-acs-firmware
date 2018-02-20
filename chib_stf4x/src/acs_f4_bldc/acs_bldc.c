@@ -2,15 +2,14 @@
 #include "hal.h"
 #include "acs_bldc.h"
 
-//static adcsample_t zeroCrossing;
+static adcsample_t zeroCrossing;
 
-/*
+//*
 static void cbAdcZeroSense(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
   (void) adcp;
   (void) n;
 
   adcsample_t  res;
-
   res = *buffer;
 }
 //*/
@@ -20,7 +19,8 @@ static void cbAdcZeroSense(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
  * Mode:        Linear buffer, 1 sample of 1 channel, SW triggered.
  * Channels:    IN1.
  */
-/*
+
+//*
 static const ADCConversionGroup adcZeroSense = {
   FALSE,
   1,
@@ -51,28 +51,30 @@ static uint8_t pwmScheme[6][3] = {
 
 BldcConfig  bldc;
 
-
 /* The PWM Counter Reset will put the PWM system in "ACTIVE" state, which
  * is defined as the state when the channel is active and a compare event
  * has not yet taken place.
  */
-/*
-static void cdPwmCounterReset(PWMDriver *pwmp) {
-  (void) pwmp;
 
-  chSysLockFromIsr();
-  palWriteGroup (PWM_OUT_PORT, PWM_OUT_PORT_MASK, PWM_OUT_OFFSET,  bldc.pwmOutT0);
+//*
+static void cdPwmCounterReset(PWMDriver *pwmp) {
+  (void)pwmp;
+  
+	palSetPad(GPIOA, GPIOA_LED_GREEN); // for fun!
+//*  
+	chSysLockFromISR();
+  palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,bldc.pwmOutT0);
 
   // Calculate and initiate the state change
   // Consider moving this to a thread to further slim down the ISR callback
-  if (!halIsCounterWithin(bldc.prevStateChange, bldc.nextStateChange)) {
-
+  if(!chSysIsCounterWithinX(chSysGetRealtimeCounterX(),bldc.prevStateChange,bldc.nextStateChange)) {
+  //if(!halIsCounterWithin(bldc.prevStateChange,bldc.nextStateChange)){ //old
     // Prepare next state
     if (bldc.directionFwd) {
-      bldc.nextState++;
+      ++bldc.nextState;
     }
     else {
-      bldc.nextState--;
+      --bldc.nextState;
     }
 
     // Wrap the state counter
@@ -82,63 +84,59 @@ static void cdPwmCounterReset(PWMDriver *pwmp) {
     bldc.prevStateChange = bldc.nextStateChange;
     bldc.nextStateChange += bldc.stateChangeInterval;
   }
-  chSysUnlockFromIsr();
+  chSysUnlockFromISR();
+	//*/
 }
 //*/
 
-/* The PWM Channel compare will put the PWM system in "IDLE" state, which
+/* 
+ * The PWM Channel compare will put the PWM system in "IDLE" state, which
  * is defined as the state when the channel is active and a compare event
  * has taken place.
  */
-/*
-static void cbPwmCh0Compare(PWMDriver *pwmp) {
-  (void) pwmp;
 
-  chSysLockFromIsr();
-  palWriteGroup (PWM_OUT_PORT, PWM_OUT_PORT_MASK, PWM_OUT_OFFSET,  bldc.pwmOutT1);
+//*
+static void cbPwmCh0Compare(PWMDriver *pwmp){
+  (void)pwmp;
+  
+	palClearPad(GPIOA, GPIOA_LED_GREEN); // added for fun!
+//*
+  chSysLockFromISR();
+  palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,bldc.pwmOutT1);
 
   // Do the state change before the next cycle.
   // Consider moving this to a thread to further slim down the ISR callback
   bldc.state = bldc.nextState;
   bldc.pwmOutT0 = (*bldc.scheme)[bldc.state][0];
   bldc.pwmOutT1 = (*bldc.scheme)[bldc.state][1];
-  chSysUnlockFromIsr();
+  chSysUnlockFromISR();
+//*/
 }
 
-
-static void pcbPwmAdcTrigger(PWMDriver *pwmp) {
-  (void) pwmp;
-  adcStartConversion(&ADCD1, &adcZeroSense, &zeroCrossing, 1);
+//*
+static void pcbPwmAdcTrigger(PWMDriver *pwmp){
+  (void)pwmp;
+  adcStartConversion(&ADCD1,&adcZeroSense,&zeroCrossing, 1);
 }
 //*/
 
-
-static void pwmpcb(PWMDriver *pwmp) { // period call back
-  (void)pwmp;
-  palClearPad(GPIOA, GPIOA_LED_GREEN);
-}
-
-static void pwmc0cb(PWMDriver *pwmp) { // channel 1 callback
-  (void)pwmp;
-  palSetPad(GPIOA, GPIOA_LED_GREEN);
-}
-
 static PWMConfig pwmcfg = {
-	PWM_CLOCK_FREQ, 
-	PWM_FREQ,
-	pwmpcb,
-  {
-   {PWM_OUTPUT_ACTIVE_HIGH, pwmc0cb},
-   {PWM_OUTPUT_DISABLED, NULL},
-   {PWM_OUTPUT_DISABLED, NULL},
-   {PWM_OUTPUT_DISABLED, NULL}
-  },
-  0,
-  0,
-	0 // needed with advanced and newer ChibiOS
+	PWM_CLOCK_FREQ,
+	PWM_PERIOD,
+	&cdPwmCounterReset,
+	{
+		{PWM_OUTPUT_ACTIVE_HIGH,&cbPwmCh0Compare},
+		{PWM_OUTPUT_DISABLED,NULL},
+		{PWM_OUTPUT_DISABLED,NULL},
+		{PWM_OUTPUT_ACTIVE_HIGH,&pcbPwmAdcTrigger}
+	},
+	0,
+	0,
+	0
 };
+//*/
 
-extern void bldcInit(void){
+extern void bldcInit(){
 	bldc.scheme = &pwmScheme;
   bldc.state = 0;          //Default to first state
   bldc.nextState = 0;
@@ -149,12 +147,12 @@ extern void bldcInit(void){
   bldc.prevStateChange = chSysGetRealtimeCounterX();
   bldc.nextStateChange = bldc.prevStateChange + bldc.stateChangeInterval;
   bldc.pwmOutT0 = 0;
-  bldc.pwmOutT1 = 0;
+  bldc.pwmOutT1 = 1;
   bldc.stateCount = sizeof(pwmScheme)/3;
-  bldc.dutyCycle = 1800;
+ // bldc.dutyCycle = 1800;
+  bldc.dutyCycle = 1000;
 
   palSetPadMode(GPIOA, GPIOA_LED_GREEN, PAL_MODE_OUTPUT_PUSHPULL);
-//	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_ON);
 	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_OFF);
   palSetGroupMode(
 			PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PAL_MODE_OUTPUT_PUSHPULL);
@@ -165,29 +163,14 @@ extern void bldcInit(void){
 
 	// ADC trigger channel. This will trigger the ADC read at 95% of the cycle,
   // when all the PWM outputs are set to 0
-  // pwmEnableChannel (&PWMD1, PWM_ADCTRIG_CH, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, PWM_MAX_DUTY_CYCLE));
+  pwmEnableChannel(&PWMD1,PWM_ADCTRIG_CH,PWM_PERCENTAGE_TO_WIDTH(&PWMD1,PWM_MAX_DUTY_CYCLE));
 
   // Start the ADC
-  // adcStart(&ADCD1, NULL);
+  adcStart(&ADCD1, NULL);
 }
 
-/*
 extern void bldcStart(void){
-  pwmStart(&PWMD1, &pwmcfg);
-  pwmEnablePeriodicNotification(&PWMD1);
-  palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(1));
-  chThdSleepMilliseconds(2000);
-  //Starts the PWM channel 0 using 50% duty cycle implicitly
-  pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 5000));
-//	pwmChangePeriod (&PWMD1, 5000);
-  pwmEnableChannelNotification(&PWMD1, 0);
-  chThdSleepMilliseconds(5000);
-}
-//*/
-
-extern void bldcStart(void){
-  pwmEnableChannel (&PWMD1, PWM_PULSE0_CH, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, bldc.dutyCycle));
-//  chThdSleepMilliseconds(5000);
+  pwmEnableChannel(&PWMD1,PWM_PULSE0_CH,PWM_PERCENTAGE_TO_WIDTH(&PWMD1,bldc.dutyCycle));
 }
 
 extern void bldcStop(void){

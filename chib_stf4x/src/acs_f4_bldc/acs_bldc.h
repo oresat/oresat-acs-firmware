@@ -27,15 +27,15 @@ typedef struct {
 #define PWM_WP      0b100000
 #define PWM_EXPECT_ZERO     TRUE  
 
-//#define PWM_CLOCK_FREQ    16800000 // old
-#define PWM_CLOCK_FREQ      10000 
-//#define PWM_FREQ          5000 // old
-#define PWM_FREQ            10000
+#define PWM_CLOCK_FREQ    16800000 // old
+//#define PWM_CLOCK_FREQ      10000 
+#define PWM_FREQ          5000 // old
+//#define PWM_FREQ            10000
 #define PWM_PERIOD          PWM_CLOCK_FREQ/PWM_FREQ
 
 #define PWM_MAX_DUTY_CYCLE    9500
 
-#define STATE_CHANGE_LIMIT_US 10*1000000/PWM_FREQ //wtf
+//#define STATE_CHANGE_LIMIT_US 10*1000000/PWM_FREQ //wtf ok not used
 
 #define PWM_OUT_PORT_MASK   0x3F
 //#define PWM_OUT_PORT        GPIOA
@@ -54,6 +54,5 @@ extern void bldcStart(void);
 extern void bldcKill(void);
 //extern void bldcSetDutyCycle(uint32_t dutyCycle);
 //extern void bldcSetRPM (uint32_t rpm);
-
 
 #endif
