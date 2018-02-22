@@ -1,6 +1,9 @@
 #ifndef ADC_BLDC_H
 #define ADC_BLDC_H
 
+#include <stdint.h>
+#include <stdbool.h>
+
 typedef struct {
   uint8_t   (*scheme)[][3];
   uint8_t   pwmOutT0;
