@@ -67,9 +67,7 @@ static void cdPwmCounterReset(PWMDriver *pwmp) {
 
   // Calculate and initiate the state change
   // Consider moving this to a thread to further slim down the ISR callback
-//  if(!chSysIsCounterWithinX(bldc.nextState,bldc.prevStateChange,bldc.nextStateChange)) {
   if(!chSysIsCounterWithinX(chSysGetRealtimeCounterX(),bldc.prevStateChange,bldc.nextStateChange)) {
-  //if(!halIsCounterWithin(bldc.prevStateChange,bldc.nextStateChange)){ //old
     // Prepare next state
     if (bldc.directionFwd) {
       ++bldc.nextState;
@@ -122,7 +120,9 @@ static void pcbPwmAdcTrigger(PWMDriver *pwmp){
 //*/
 
 static PWMConfig pwmcfg = {
+	//40000,
 	PWM_CLOCK_FREQ,
+	//1000,
 	PWM_PERIOD,
 	&cdPwmCounterReset,
 	{
