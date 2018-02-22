@@ -17,15 +17,15 @@
 #include "ch.h"
 #include "hal.h"
 
-static int cycle0 = 1000;
+static int cycle0 = 0;
 static int cycle1 = 1000;
-static int cycle2 = 1000;
+static int cycle2 = 10000;
 
 static void pwmpcb(PWMDriver *pwmp) { // period call back
   (void)pwmp;
-  //palClearPad(GPIOA, GPIOA_LED_GREEN);
-  //palClearPad(GPIOA, GPIOA_PIN15);
-  //palClearPad(GPIOA, 9);
+  palClearPad(GPIOA, 10);
+  palClearPad(GPIOA, 8);
+  palClearPad(GPIOA, 9);
   //pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 1000));
   //pwmEnableChannel(&PWMD1, 1, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 1000));
   //pwmEnableChannel(&PWMD1, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 1000));
@@ -33,34 +33,34 @@ static void pwmpcb(PWMDriver *pwmp) { // period call back
 
 static void pwmc1cb(PWMDriver *pwmp) { // channel 1 callback
   (void)pwmp;
-  //palSetPad(GPIOA, 10);
+  palSetPad(GPIOA, 10);
   pwmEnableChannelI(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, cycle0));
-  cycle0 += 10;
+  cycle0 += 500;
   if (cycle0 > 10000)
     cycle0 = 0;
 }
 
 static void pwmc2cb(PWMDriver *pwmp) { // channel 1 callback
   (void)pwmp;
-  //palSetPad(GPIOA, 8);
+  palSetPad(GPIOA, 8);
   pwmEnableChannelI(&PWMD1, 1, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, cycle1));
   cycle1 += 100;
-  if (cycle1 > 10000)
+  if (cycle1 >= 10000)
     cycle1 = 0;
 }
 
 static void pwmc3cb(PWMDriver *pwmp) { // channel 1 callback
   (void)pwmp;
-  //palSetPad(GPIOA, 9);
+  palSetPad(GPIOA, 9);
   pwmEnableChannelI(&PWMD1, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, cycle2));
-  cycle2 += 1000;
-  if (cycle2 > 10000)
-    cycle2 = 0;
+  cycle2 -= 100;
+  if (cycle2 <= 0)
+    cycle2 = 10000;
 }
 
 static PWMConfig pwmcfg = {
-  40000,                                    /* 10kHz PWM clock frequency.   */
-  1000,                                    /* Initial PWM period 1S.       */
+  80000,                                    /* 10kHz PWM clock frequency.   */
+  500,                                    /* Initial PWM period 1S.       */
   pwmpcb,
   {
    {PWM_OUTPUT_ACTIVE_HIGH, pwmc1cb},
@@ -79,7 +79,7 @@ static THD_FUNCTION(pwmThread1, arg) {
   chRegSetThreadName("pwm");
 	// initialize pwm driver
   pwmStart(&PWMD1, &pwmcfg);
-  //pwmEnablePeriodicNotification(&PWMD1);
+  pwmEnablePeriodicNotification(&PWMD1);
   palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(1));
   palSetPadMode(GPIOA, 9, PAL_MODE_ALTERNATE(1));
   palSetPadMode(GPIOA, 10, PAL_MODE_ALTERNATE(1));
