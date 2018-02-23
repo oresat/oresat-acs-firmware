@@ -20,7 +20,8 @@ typedef struct {
 
 #define BLDC_COMM_STACK_SIZE    1024
 
-#define PWM_ON			0x111111 // testing
+#define PWM_ON			0x111 // testing
+//#define PWM_ON			0x111111 // testing
 #define PWM_OFF     0b000000
 #define PWM_UN      0b000001
 #define PWM_UP      0b000010
@@ -31,9 +32,9 @@ typedef struct {
 #define PWM_EXPECT_ZERO     TRUE  
 
 //#define PWM_CLOCK_FREQ    16800000 // old
-#define PWM_CLOCK_FREQ      40000 
+#define PWM_CLOCK_FREQ      400000 
 //#define PWM_FREQ          5000 // old
-#define PWM_FREQ          	40// old
+#define PWM_FREQ          	1// old
 #define PWM_PERIOD          PWM_CLOCK_FREQ/PWM_FREQ
 
 #define PWM_MAX_DUTY_CYCLE    9500
@@ -43,9 +44,9 @@ typedef struct {
 #define PWM_OUT_PORT_MASK   0x7
 //#define PWM_OUT_PORT_MASK   0x3F
 #define PWM_OUT_PORT        GPIOA
-#define PWM_OUT_PORTN       GPIOB
+#define PWM_OUT_PORT_N      GPIOB
 #define PWM_OUT_OFFSET      8
-#define PWM_OUT_OFFSETN     13
+#define PWM_OUT_OFFSET_N     13
 
 
 #define PWM_PULSE0_CH       0

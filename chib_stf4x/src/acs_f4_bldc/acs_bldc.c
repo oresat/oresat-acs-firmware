@@ -62,8 +62,10 @@ static void cdPwmCounterReset(PWMDriver *pwmp) {
   
 //*  
 	chSysLockFromISR();
-  palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,bldc.pwmOutT0);
-  palWriteGroup(PWM_OUT_PORTN,PWM_OUT_PORT_MASK,PWM_OUT_OFFSETN,bldc.pwmOutT0);
+  //palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,bldc.pwmOutT0);
+  //palWriteGroup(PWM_OUT_PORT_N,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET_N,bldc.pwmOutT0);
+//	palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,0x0);
+//	palWriteGroup(PWM_OUT_PORT_N,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET_N,0x7);
 
   // Calculate and initiate the state change
   // Consider moving this to a thread to further slim down the ISR callback
@@ -100,8 +102,10 @@ static void cbPwmCh0Compare(PWMDriver *pwmp){
   
 //*
   chSysLockFromISR();
-  palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,bldc.pwmOutT1);
-  palWriteGroup(PWM_OUT_PORTN,PWM_OUT_PORT_MASK,PWM_OUT_OFFSETN,bldc.pwmOutT1);
+  //palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,bldc.pwmOutT1);
+  //palWriteGroup(PWM_OUT_PORT_N,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET_N,bldc.pwmOutT1);
+//	palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,0x7);
+//	palWriteGroup(PWM_OUT_PORT_N,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET_N,0x0);
 
   // Do the state change before the next cycle.
   // Consider moving this to a thread to further slim down the ISR callback
@@ -148,15 +152,17 @@ extern void bldcInit(){
   bldc.pwmOutT1 = 0;
   bldc.stateCount = sizeof(pwmScheme)/3;
  // bldc.dutyCycle = 1800;
-  bldc.dutyCycle = 1000;
+  bldc.dutyCycle = 5000;
 
-	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_OFF);
-  palSetGroupMode(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PAL_MODE_OUTPUT_PUSHPULL);
-  //pwmEnableChannel(&PWMD1,0,PWM_PERCENTAGE_TO_WIDTH(&PWMD1,PWM_MAX_DUTY_CYCLE));
+//	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,0x7);
+	//palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_OFF);
+//  palSetGroupMode(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PAL_MODE_OUTPUT_PUSHPULL);
 	
-	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSETN,PWM_OFF);
-  palSetGroupMode(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSETN,PAL_MODE_OUTPUT_PUSHPULL);
-  pwmEnableChannel(&PWMD1,0,PWM_PERCENTAGE_TO_WIDTH(&PWMD1,PWM_MAX_DUTY_CYCLE));
+	palWriteGroup(PWM_OUT_PORT_N, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET_N,0x7);
+//	palWriteGroup(PWM_OUT_PORT_N,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET_N,PWM_OFF);
+  palSetGroupMode(PWM_OUT_PORT_N,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET_N,PAL_MODE_OUTPUT_PUSHPULL);
+  
+	pwmEnableChannel(&PWMD1,PWM_PULSE0_CH,PWM_PERCENTAGE_TO_WIDTH(&PWMD1,PWM_MAX_DUTY_CYCLE));
 
 	pwmStart(&PWMD1, &pwmcfg);
 
