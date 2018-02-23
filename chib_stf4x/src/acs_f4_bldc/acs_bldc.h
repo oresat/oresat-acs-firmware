@@ -40,11 +40,12 @@ typedef struct {
 
 //#define STATE_CHANGE_LIMIT_US 10*1000000/PWM_FREQ //wtf ok not used
 
-#define PWM_OUT_PORT_MASK   0x3F
-//#define PWM_OUT_PORT        GPIOA
-#define PWM_OUT_PORT        GPIOB
-#define PWM_OUT_OFFSET      0
-//#define PWM_OUT_OFFSET      8
+#define PWM_OUT_PORT_MASK   0x7
+//#define PWM_OUT_PORT_MASK   0x3F
+#define PWM_OUT_PORT        GPIOA
+#define PWM_OUT_PORTN       GPIOB
+#define PWM_OUT_OFFSET      8
+#define PWM_OUT_OFFSETN     13
 
 
 #define PWM_PULSE0_CH       0

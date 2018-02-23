@@ -60,10 +60,10 @@ BldcConfig  bldc;
 static void cdPwmCounterReset(PWMDriver *pwmp) {
   (void)pwmp;
   
-	palSetPad(GPIOA, GPIOA_LED_GREEN); // for fun!
 //*  
 	chSysLockFromISR();
   palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,bldc.pwmOutT0);
+  palWriteGroup(PWM_OUT_PORTN,PWM_OUT_PORT_MASK,PWM_OUT_OFFSETN,bldc.pwmOutT0);
 
   // Calculate and initiate the state change
   // Consider moving this to a thread to further slim down the ISR callback
@@ -98,10 +98,10 @@ static void cdPwmCounterReset(PWMDriver *pwmp) {
 static void cbPwmCh0Compare(PWMDriver *pwmp){
   (void)pwmp;
   
-	palClearPad(GPIOA, GPIOA_LED_GREEN); // added for fun!
 //*
   chSysLockFromISR();
   palWriteGroup(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,bldc.pwmOutT1);
+  palWriteGroup(PWM_OUT_PORTN,PWM_OUT_PORT_MASK,PWM_OUT_OFFSETN,bldc.pwmOutT1);
 
   // Do the state change before the next cycle.
   // Consider moving this to a thread to further slim down the ISR callback
@@ -141,9 +141,7 @@ extern void bldcInit(){
   bldc.state = 0;          //Default to first state
   bldc.nextState = 0;
   bldc.directionFwd = TRUE;
-  //bldc.stateChangeInterval = MS2RTT(20); // old call
   bldc.stateChangeInterval = MS2RTC(STM32_HSECLK,20);
-  //bldc.prevStateChange = halGetCounterValue(); // old
   bldc.prevStateChange = chSysGetRealtimeCounterX();
   bldc.nextStateChange = bldc.prevStateChange + bldc.stateChangeInterval;
   bldc.pwmOutT0 = 0;
@@ -152,14 +150,15 @@ extern void bldcInit(){
  // bldc.dutyCycle = 1800;
   bldc.dutyCycle = 1000;
 
-  palSetPadMode(GPIOA, GPIOA_LED_GREEN, PAL_MODE_OUTPUT_PUSHPULL);
 	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PWM_OFF);
-  palSetGroupMode(
-			PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PAL_MODE_OUTPUT_PUSHPULL);
-  pwmStart(&PWMD1, &pwmcfg);
-	pwmEnablePeriodicNotification(&PWMD1);
+  palSetGroupMode(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSET,PAL_MODE_OUTPUT_PUSHPULL);
+  //pwmEnableChannel(&PWMD1,0,PWM_PERCENTAGE_TO_WIDTH(&PWMD1,PWM_MAX_DUTY_CYCLE));
+	
+	palWriteGroup(PWM_OUT_PORT, PWM_OUT_PORT_MASK,PWM_OUT_OFFSETN,PWM_OFF);
+  palSetGroupMode(PWM_OUT_PORT,PWM_OUT_PORT_MASK,PWM_OUT_OFFSETN,PAL_MODE_OUTPUT_PUSHPULL);
   pwmEnableChannel(&PWMD1,0,PWM_PERCENTAGE_TO_WIDTH(&PWMD1,PWM_MAX_DUTY_CYCLE));
-  pwmEnableChannelNotification(&PWMD1, 0);
+
+	pwmStart(&PWMD1, &pwmcfg);
 
 	// ADC trigger channel. This will trigger the ADC read at 95% of the cycle,
   // when all the PWM outputs are set to 0
