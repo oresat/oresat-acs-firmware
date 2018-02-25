@@ -1,5 +1,5 @@
 # List of all the board related files.
-BOARDSRC = $(BOARDDIR)/board.c
+BOARDSRC = $(CHIBIOS)/os/hal/boards/ST_NUCLEO32_F042K6/board.c
 
 # Required include directories
-BOARDINC = $(BOARDDIR)
+BOARDINC = $(CHIBIOS)/os/hal/boards/ST_NUCLEO32_F042K6
